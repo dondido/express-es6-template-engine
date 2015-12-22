@@ -141,13 +141,13 @@ res.render('index', {
   });
 ```
 
-and a conditional statement in a html file like the one below:
+And a conditional statement in a html file like the one below:
 
 ```html
 ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maitaned anymore'}.
 ```
 
-will result in the following:
+Will result in the following:
 
 ```html
 ES6 Renderer is a template engine maintained by Good Samaritans.
