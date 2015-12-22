@@ -1,5 +1,4 @@
-const path = require('path'),
-  fs = require('fs'); // this engine requires the fs module
+const fs = require('fs'); // this engine requires the fs module
 module.exports = function (options) { // define the template engine
   /* jshint ignore:start */
   const interpolate = (content, keyList, valList) => new Function(
@@ -9,12 +8,12 @@ module.exports = function (options) { // define the template engine
     /* jshint ignore:end */
     readPartial = (filePath) => new Promise(
       (resolve, reject) => fs.readFile(
-        path.join(this.viewsPath, filePath),
+        this.viewsPath + '/' + filePath,
         'utf-8',
         (err, content) => err ? reject(new Error(err)) : resolve(content)
       )
     );
-  this.viewsPath = path.join(__dirname, options && options.viewsPath || 'views');
+  this.viewsPath = options && options.viewsPath || 'views';
   this.render = (filePath, dict, callback) => {
     const compile = (err, content) => {
       var locals = dict.locals || {},

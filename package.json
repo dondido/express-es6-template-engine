@@ -1,6 +1,6 @@
 {
   "name": "express-es6-template-engine",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Express ES6 string template engine",
   "main": "es6-renderer.js",
   "scripts": {
@@ -13,6 +13,10 @@
     "javascript",
     "backlash template strings"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dondido/express-es6-template-engine.git"
+  },
   "author": "Dian Dimitrov",
   "license": "MIT"
 }
