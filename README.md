@@ -47,4 +47,4 @@ app.get('/', function(req, res) {
   res.render('index', {locals: {title: 'Welcome!'}});
 });
 ```
-When a request is made to the home page, the index.html file will be rendered as HTML.
+Express-compliant template engines such as ES6 Renderer export a function named __express(filePath, options, callback), which is called by the res.render() function to render the template code. When a request is made to the home page, the index.html file will be rendered as HTML.
