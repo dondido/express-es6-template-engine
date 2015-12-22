@@ -6,6 +6,10 @@ It works by scanning files in a working directory, then reading the contents of 
 
 ### Usage
 
+#### Setup
+
+The basics required to integrate ES6 renderer in your app are pretty simple and easy to implement:
+
 ```javascript
 var express = require('express'),
   es6Renderer = require('es6-renderer'),
@@ -48,6 +52,69 @@ app.get('/', function(req, res) {
 });
 ```
 Express-compliant template engines such as ES6 Renderer export a function named __express(filePath, options, callback), which is called by the res.render() function to render the template code. When a request is made to the home page, the index.html file will be rendered as HTML.
+
+#### Rendering a template
+
+Within your app route callback, call `res.render`, passing any partials and local variables required by your template. For example:
+
+```javascript
+res.render('index', {
+    locals: {
+      title:  'Welcome!'
+    },
+    partials: {
+      template: 'template.html'
+    }
+  });
+```
+
+Having the index.html file with the following content in your view directory is need:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${title}</title>
+</head>
+<body>
+    <h1>${title}</h1>
+    <main>${template}</main>
+</body>
+</html>
+```
+
+Partial template with a file name template.html will be injected into index.html:
+
+```html
+<div>No learning of a template engine syntax required! Pure vanilla javascript certified!</div>
+```
+
+The content below will be rendered on the client side as a response from the Express app:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <div>No learning of a template engine syntax required! Pure vanilla javascript certified!</div>
+</body>
+</html>
+```
+
+#### Compiling a string
+
+ES6 Renderer rendering functionality has separate scanning, parsing, string generation and response sending phases. Compilation is pretty much the same but without the response sending phase. This feature can be useful for pre-processing templates on the server.
+Compiling has the following syntax:
+
+```javascript
+var titleTpl = '${engineName} - The fastest javascript template string engine!',
+    cb = (err, content) => {return err || content},
+    compiledTitle = es6Renderer()(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
+```
+* If string is rendered as in the example provided above a 'template' option needs to be set to true.
 
 ## License
 
