@@ -4,6 +4,17 @@ Express ES6 string template engine
 ES6 Renderer is simple, super fast, and extendable Template Engine for the Express Framework which uses pure ES6 Javascript syntax.
 It works by scanning files in a working directory, then reading the contents of the files and converting them from plain strings to ES6 template strings. ES6 template strings are string literals enclosed by the back-tick. They feature String Interpolation, Embedded Expressions, Multiline strings and String Tagging for safe HTML escaping, localisation, etc. Once convertion is completed its then compiled to plain text by the V8 engine, harnessing 100% of its power. Being less than 1kb, ES6 Renderer offloads a lot of the processing directly to the V8 interpreter, which compiles the code and runs as fast as the rest of the Express App. In fact, ES6 Renderer shouldn't add any overhead to the project at all! It should also allow us to implement any functionality we like within the bounds of Javascript.
 
+### Features
+
+* No Dependencies
+* Fully Configurable
+* Compiled and interpreted by V8 (Super Fast)
+* Learning new syntax is not required
+* Partials Support
+* Conditional Support
+* Iterators Support
+* Native Javascript Support
+
 ### Usage
 
 #### Setup
@@ -116,7 +127,78 @@ var titleTpl = '${engineName} - The fastest javascript template string engine!',
 ```
 * If string is rendered as in the example provided above a 'template' option needs to be set to true.
 
-## License
+#### Conditional statements
+
+ES6 Renderer dynamically evaluates code in JavaScript. If the argument is an expression, ES6 Renderer evaluates the expression. If the argument is one or more JavaScript statements, the engine executes the statements. A simplified example of using conditional statement is presented below.
+
+A route path on the server side:
+
+```javascript
+res.render('index', {
+    locals: {
+      maintainedBy:  'Good Samaritans'
+    }
+  });
+```
+
+and a conditional statement in a html file like the one below:
+
+```html
+ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maitaned anymore'}.
+```
+
+will result in the following:
+
+```html
+ES6 Renderer is a template engine maintained by Good Samaritans.
+```
+
+#### Iterators
+
+Iterating over arrays and objects is quite straight forward and intuitive (knowledge of basic javascript here is essential). An object literal is passed to a html template:
+
+```javascript
+res.render('index', {
+    locals: {
+      features:  [
+      { 
+        dt: 'Multi-line strings', 
+        dd: 'Any new line characters inserted in the source are part of the template string.' 
+      },
+      { 
+        dt: 'Expression interpolation', 
+        dd: 'Template strings can contain placeholders. These are indicated by dollar sign and curly braces.' 
+      },
+    ]
+    }
+  });
+```
+
+The html templates holds the following logic:
+
+```html
+<dl>
+  ${features.map(f => `
+    <dt>${f.dt}</dt>
+    <dd>${f.dd}</dd>
+  `)}
+</dl>
+```
+
+And the following is received by the client side:
+
+```html
+<dl>
+    <dt>Multi-line strings</dt>
+    <dd>Any new line characters inserted in the source are part of the template string.</dd>
+    <dt>Expression interpolation</dt>
+    <dd>Template strings can contain placeholders. These are indicated by dollar sign and curly braces.</dd>
+</dl>
+```
+
+
+
+### License
 
 MIT License
 
