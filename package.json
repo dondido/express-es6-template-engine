@@ -13,6 +13,7 @@
     "javascript",
     "backlash template strings"
   ],
+  "engine": "node >= 4.0.1"
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dondido/express-es6-template-engine.git"
