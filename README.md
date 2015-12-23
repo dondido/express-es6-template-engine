@@ -32,7 +32,7 @@ The basics required to integrate ES6 renderer in your app are pretty simple and 
 
 ```javascript
 var express = require('express'),
-  es6Renderer = require('es6-renderer'),
+  es6Renderer = require('express-es6-template-engine'),
   app = express();
   
 app.engine('html', es6Renderer({}));
