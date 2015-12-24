@@ -13,7 +13,7 @@ module.exports = function (options) { // define the template engine
         (err, content) => err ? reject(new Error(err)) : resolve(content)
       )
     );
-  this.viewsPath = options && options.viewsPath || 'views';
+  this.viewsPath = options && options.viewsPath || '';
   this.render = (filePath, dict, callback) => {
     const compile = (err, content) => {
       var locals = dict.locals || {},
@@ -39,9 +39,7 @@ module.exports = function (options) { // define the template engine
     if (dict.template) {
       return compile(null, filePath);
     }
-    else {
-      fs.readFile(filePath, 'utf-8', compile);
-    }
+    fs.readFile(filePath, 'utf-8', compile);
   };
   return this.render;
 };
