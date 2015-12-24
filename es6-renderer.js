@@ -1,5 +1,5 @@
 const fs = require('fs'); // this engine requires the fs module
-module.exports = function (options) { // define the template engine
+module.exports = (function(options) { // define the template engine
   /* jshint ignore:start */
   const interpolate = (content, keyList, valList) => new Function(
       ...keyList,
@@ -8,12 +8,11 @@ module.exports = function (options) { // define the template engine
     /* jshint ignore:end */
     readPartial = (filePath) => new Promise(
       (resolve, reject) => fs.readFile(
-        this.viewsPath + '/' + filePath,
+        filePath,
         'utf-8',
-        (err, content) => err ? reject(new Error(err)) : resolve(content)
+        (err, content) => err ? console.log(new Error(err)) : resolve(content)
       )
     );
-  this.viewsPath = options && options.viewsPath || '';
   this.render = (filePath, dict, callback) => {
     const compile = (err, content) => {
       var locals = dict.locals || {},
@@ -42,4 +41,4 @@ module.exports = function (options) { // define the template engine
     fs.readFile(filePath, 'utf-8', compile);
   };
   return this.render;
-};
+})();
