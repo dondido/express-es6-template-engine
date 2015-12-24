@@ -35,7 +35,7 @@ var express = require('express'),
   es6Renderer = require('express-es6-template-engine'),
   app = express();
   
-app.engine('html', es6Renderer({}));
+app.engine('html', es6Renderer());
 app.set('views', 'views');
 app.set('view engine', 'html');
 
@@ -124,6 +124,12 @@ The content below will be rendered on the client side as a response from the Exp
 </html>
 ```
 
+If our **views/** folder is somewhere other than the root of our appl directory, we need to specify it like this:
+
+```javascript
+app.engine('html', es6Renderer({viewsPath: 'public'}));
+```
+
 #### Compiling a string
 
 ES6 Renderer rendering functionality has separate scanning, parsing, string generation and response sending phases. Compilation is pretty much the same but without the response sending phase. This feature can be useful for pre-processing templates on the server.
@@ -131,10 +137,10 @@ Compiling has the following syntax:
 
 ```javascript
 var titleTpl = '${engineName} - The fastest javascript template string engine!',
-    cb = (err, content) => {return err || content},
+    cb = (err, content) => err || content,
     compiledTitle = es6Renderer()(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
 ```
-* If string is rendered as in the example provided above a 'template' option needs to be set to true.
+If string is rendered as in the example provided above a 'template' option needs to be set to true.
 
 #### Conditional statements
 
