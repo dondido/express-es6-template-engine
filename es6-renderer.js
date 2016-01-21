@@ -31,7 +31,8 @@ module.exports = (function(options) { // define the template engine
               values.map(i => interpolate(i, keyList, valTempList))
             );
             return callback(null, interpolate(content, keyList, valList));
-          });
+          })
+          .catch(err => callback(err));
       }
       return callback(null, interpolate(content, keyList, valList));
     };
