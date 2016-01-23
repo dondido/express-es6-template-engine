@@ -4,6 +4,8 @@ Express ES6 string template engine
 ES6 Renderer is simple, super fast, and extendable Template Engine for the Express Framework which uses pure ES6 Javascript syntax.
 It works by scanning files in a working directory, then reading the contents of the files and converting them from plain strings to ES6 template strings. ES6 template strings are string literals enclosed by the back-tick. They feature String Interpolation, Embedded Expressions, Multiline strings and String Tagging for safe HTML escaping, localisation, etc. Once convertion is completed its then compiled to plain text by the V8 engine, harnessing 100% of its power. Being less than 1kb, ES6 Renderer offloads a lot of the processing directly to the V8 interpreter, which compiles the code and runs as fast as the rest of the Express App. In fact, ES6 Renderer shouldn't add any overhead to the project at all! It should also allow us to implement any functionality we like within the bounds of Javascript.
 
+Minimum requirements Node.js `v4.0.0`.
+
 [![Package Version](https://img.shields.io/badge/npm-4.0.0-blue.svg)](https://www.npmjs.com/package/express-es6-template-engine)
 
 ### Installation
