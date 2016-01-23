@@ -10,7 +10,7 @@ module.exports = (function(options) { // define the template engine
       (resolve, reject) => fs.readFile(
         filePath,
         'utf-8',
-        (err, content) => err ? console.log(new Error(err)) : resolve(content)
+        (err, content) => err ? reject(new Error(err))  : resolve(content)
       )
     );
   this.render = (filePath, dict, callback) => {
@@ -31,7 +31,8 @@ module.exports = (function(options) { // define the template engine
               values.map(i => interpolate(i, keyList, valTempList))
             );
             return callback(null, interpolate(content, keyList, valList));
-          });
+          })
+          .catch(err => callback(err));
       }
       return callback(null, interpolate(content, keyList, valList));
     };
