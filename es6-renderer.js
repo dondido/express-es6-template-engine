@@ -37,7 +37,7 @@ module.exports = (function(options) { // define the template engine
       return callback(null, interpolate(content, keyList, valList));
     };
     if (dict.template) {
-      return compile(null, filePath);
+      return readPartial(filePath).then(content => compile(null, content));
     }
     fs.readFile(filePath, 'utf-8', compile);
   };
