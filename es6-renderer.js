@@ -8,8 +8,8 @@ module.exports = (function(options) { // define the template engine
     /* jshint ignore:end */
     readPartial = filePath => {
       const findFile = (resolve, reject) => {
-        const getFileContent = (err, content) => err ? reject(new Error(err))  : resolve(content);
-        return fs.readFile(filePath, 'utf-8', getFileContent);
+        const getFileContent = (err, content) => err ? reject(new Error(err)) : resolve(content);
+        fs.readFile(filePath, 'utf-8', getFileContent);
       };
       return new Promise(findFile);
     };
