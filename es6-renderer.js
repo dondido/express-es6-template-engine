@@ -5,11 +5,11 @@ module.exports = (function(options) { // define the template engine
       ...keyList,
       'return `' + content + '`;'
     )(...valList),
-    /* jshint ignore:end */,
+    /* jshint ignore:end */
     readPartial = filePath => {
       const findFile = (resolve, reject) => {
         const getFileContent = (err, content) => err ? reject(new Error(err))  : resolve(content);
-        fs.readFile(filePath, 'utf-8', getFileContent);
+        return fs.readFile(filePath, 'utf-8', getFileContent);
       };
       return new Promise(findFile);
     };
