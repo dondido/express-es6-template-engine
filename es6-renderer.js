@@ -5,17 +5,17 @@ module.exports = (function(options) { // define the template engine
       ...keyList,
       'return `' + content + '`;'
     )(...valList),
-    /* jshint ignore:end */
-    readPartial = (filePath) => new Promise(
-      (resolve, reject) => fs.readFile(
-        filePath,
-        'utf-8',
-        (err, content) => err ? reject(new Error(err))  : resolve(content)
-      )
-    );
+    /* jshint ignore:end */,
+    readPartial = filePath => {
+      const findFile = (resolve, reject) => {
+        const getFileContent = (err, content) => err ? reject(new Error(err))  : resolve(content);
+        fs.readFile(filePath, 'utf-8', getFileContent);
+      };
+      return new Promise(findFile);
+    };
   this.render = (filePath, dict, callback) => {
     const compile = (err, content) => {
-      var locals = dict.locals || {},
+      const locals = dict.locals || {},
         localsList = Object.keys(locals),
         partialsList = Object.keys(dict.partials || {}),
         valList = localsList.map(i => locals[i]),
@@ -27,9 +27,7 @@ module.exports = (function(options) { // define the template engine
         return Promise.all(partialsList.map(i => readPartial(dict.partials[i])))
           .then(values => {
             const valTempList = valList.concat(values);
-            valList = valList.concat(
-              values.map(i => interpolate(i, keyList, valTempList))
-            );
+            valList.push(...values.map(i => interpolate(i, keyList, valTempList)));
             return callback(null, interpolate(content, keyList, valList));
           })
           .catch(err => callback(err));
@@ -37,7 +35,7 @@ module.exports = (function(options) { // define the template engine
       return callback(null, interpolate(content, keyList, valList));
     };
     if (dict.template) {
-      return readPartial(filePath).then(content => compile(null, content));
+      return compile(null, filePath);
     }
     fs.readFile(filePath, 'utf-8', compile);
   };
