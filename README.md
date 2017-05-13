@@ -135,9 +135,49 @@ Compiling has the following syntax:
 ```javascript
 var titleTpl = '${engineName} - The fastest javascript template string engine!',
     cb = (err, content) => err || content,
-    compiledTitle = es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
+    es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
 ```
 If string is rendered as in the example provided above a 'template' option needs to be set to true.
+
+#### Compiling a template
+
+The two functions `app.render` and `es6Renderer` are almost identical, but they require slightly different parameters to be passed. While `app.render` uses an absolute path, or a path relative to the views setting, `es6Renderer` expects a path relative to root folder.
+They both return the rendered content of a view via the callback function. The output in the two examples provided below is the same:
+```javascript
+app.render('index', {
+  partials: {
+    template: 'template'
+  }
+}, (err, content) => err || content);
+```
+```javascript
+es6Renderer('view/index.html', {
+  partials: {
+    template: 'views/template.html'
+  }
+}, (err, content) => err || content);
+```
+On average `es6Renderer` yields better performance than `app.render`.
+
+#### Compiling a nested template
+
+Template nesting is currently not supported by the engine. A simple workaround to this issue would be to perform multiple template compilations:
+```javascript
+const renderPage = (err, content) => res.render('index', {
+  locals: {
+    template: content
+  },
+  partials: {
+    mian: 'templateC'
+  }
+});
+es6Renderer('view/templateA.html', {
+  partials: {
+    template: 'views/templateB.html'
+  }
+}, renderPage);
+```
+On average `es6Renderer` yields better performance than `app.render`.
 
 #### Conditional statements
 
