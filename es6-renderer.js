@@ -4,6 +4,7 @@ const fs = require('fs'), // this engine requires the fs module
     ...localsKeys,
     'return `' + content + '`;'
   )(...localsValues),
+  setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views + ref + ext;
   /* jshint ignore:end */
   readPartial = path => {
     const findFile = (resolve, reject) => {
@@ -26,7 +27,7 @@ module.exports = (path, options, callback) => {
         const setPartial = settings ? (partialKey => {
           const ext = '.' + settings['view engine'],
             views = settings.views + '/';
-            return i => readPartial(views + partials[i] + ext);
+            return i => readPartial(setPath(views, partials[i], ext));
           })() : i => readPartial(partials[i]);
         localsKeys.push(...partialsKeys);
         return Promise.all(partialsKeys.map(setPartial))
