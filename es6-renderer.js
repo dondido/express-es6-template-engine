@@ -4,7 +4,7 @@ const fs = require('fs'), // this engine requires the fs module
     ...localsKeys,
     'return `' + content + '`;'
   )(...localsValues),
-  setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views + ref + ext;
+  setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views + ref + ext,
   /* jshint ignore:end */
   readPartial = path => {
     const findFile = (resolve, reject) => {
