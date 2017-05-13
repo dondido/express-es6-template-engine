@@ -158,7 +158,7 @@ es6Renderer('view/index.html', {
   }
 }, (err, content) => err || content);
 ```
-On average `es6Renderer` yields better performance than `app.render`.
+On average `es6Renderer` yields slightly better performance than `app.render`.
 
 #### Compiling a nested template
 
