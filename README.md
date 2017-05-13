@@ -143,6 +143,7 @@ If string is rendered as in the example provided above a 'template' option needs
 
 The two functions `app.render` and `es6Renderer` are almost identical, but they require slightly different parameters to be passed. While `app.render` uses an absolute path, or a path relative to the views setting, `es6Renderer` expects a path relative to root folder.
 They both return the rendered content of a view via the callback function. The output in the two examples provided below is the same:
+
 ```javascript
 app.render('index', {
   partials: {
@@ -162,6 +163,7 @@ On average `es6Renderer` yields better performance than `app.render`.
 #### Compiling a nested template
 
 Template nesting is currently not supported by the engine. A simple workaround to this issue would be to perform multiple template compilations:
+
 ```javascript
 const renderPage = (err, content) => res.render('index', {
   locals: {
