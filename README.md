@@ -168,7 +168,7 @@ const renderPage = (err, content) => res.render('index', {
     template: content
   },
   partials: {
-    mian: 'templateC'
+    main: 'templateC'
   }
 });
 es6Renderer('view/templateA.html', {
