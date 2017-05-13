@@ -179,7 +179,6 @@ es6Renderer('view/templateA.html', {
   }
 }, renderPage);
 ```
-On average `es6Renderer` yields better performance than `app.render`.
 
 #### Conditional statements
 
