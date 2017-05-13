@@ -1,43 +1,46 @@
-const fs = require('fs'); // this engine requires the fs module
-module.exports = (function(options) { // define the template engine
+const fs = require('fs'), // this engine requires the fs module
   /* jshint ignore:start */
-  const interpolate = (content, keyList, valList) => new Function(
-      ...keyList,
-      'return `' + content + '`;'
-    )(...valList),
-    /* jshint ignore:end */
-    readPartial = filePath => {
-      const findFile = (resolve, reject) => {
-        const getFileContent = (err, content) => err ? reject(new Error(err)) : resolve(content);
-        fs.readFile(filePath, 'utf-8', getFileContent);
-      };
-      return new Promise(findFile);
+  interpolate = (content, localsKeys, localsValues) => new Function(
+    ...localsKeys,
+    'return `' + content + '`;'
+  )(...localsValues),
+  /* jshint ignore:end */
+  readPartial = path => {
+    const findFile = (resolve, reject) => {
+      const getFileContent = (err, content) => err ? reject(new Error(err)) : resolve(content);
+      fs.readFile(path, 'utf-8', getFileContent);
     };
-  this.render = (filePath, dict, callback) => {
-    const compile = (err, content) => {
-      const locals = dict.locals || {},
-        localsList = Object.keys(locals),
-        partialsList = Object.keys(dict.partials || {}),
-        valList = localsList.map(i => locals[i]),
-        keyList = localsList.concat(partialsList);
+    return new Promise(findFile);
+  };
+    
+module.exports = (path, options, callback) => {
+  const {locals = {}, partials = {}, template, settings} = options,
+    compile = (err, content) => {
       if(err) {
         return callback(new Error(err));
       }
-      if(partialsList.length) {
-        return Promise.all(partialsList.map(i => readPartial(dict.partials[i])))
+      const localsKeys = Object.keys(locals),
+        localsValues = Object.values(locals),
+        partialsKeys = Object.keys(partials);
+      if(partialsKeys.length) {
+        const setPartial = settings ? (partialKey => {
+          const ext = '.' + settings['view engine'],
+            views = settings.views + '/';
+            return i => readPartial(views + partials[i] + ext);
+          })() : i => readPartial(partials[i]);
+        localsKeys.push(...partialsKeys);
+        return Promise.all(partialsKeys.map(setPartial))
           .then(values => {
-            const valTempList = valList.concat(values);
-            valList.push(...values.map(i => interpolate(i, keyList, valTempList)));
-            return callback(null, interpolate(content, keyList, valList));
+            const valTempList = localsValues.concat(values);
+            localsValues.push(...values.map(i => interpolate(i, localsKeys, valTempList)));
+            return callback(null, interpolate(content, localsKeys, localsValues));
           })
           .catch(err => callback(err));
       }
-      return callback(null, interpolate(content, keyList, valList));
+      return callback(null, interpolate(content, localsKeys, localsValues));
     };
-    if (dict.template) {
-      return compile(null, filePath);
-    }
-    fs.readFile(filePath, 'utf-8', compile);
-  };
-  return this.render;
-})();
+  if (template) {
+    return compile(null, path);
+  }
+  fs.readFile(path, 'utf-8', compile);
+};
