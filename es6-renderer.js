@@ -4,12 +4,12 @@ const fs = require('fs'), // this engine requires the fs module
     ...localsKeys,
     'return `' + content + '`;'
   )(...localsValues),
-  setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views + ref + ext,
+  setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views  + '/' + ref + ext,
   /* jshint ignore:end */
   readPartial = path => {
     const findFile = (resolve, reject) => {
-      const getFileContent = (err, content) => err ? reject(new Error(err)) : resolve(content);
-      fs.readFile(path, 'utf-8', getFileContent);
+      const getContent = (err, content) => err ? reject(new Error(err)) : resolve(content);
+      fs.readFile(path, 'utf-8', getContent);
     };
     return new Promise(findFile);
   };
@@ -21,14 +21,31 @@ module.exports = (path, options, callback) => {
         return callback(new Error(err));
       }
       const localsKeys = Object.keys(locals),
-        localsValues = Object.values(locals),
+        localsValues = localsKeys.map(i => locals[i]),
         partialsKeys = Object.keys(partials);
       if(partialsKeys.length) {
-        const setPartial = settings ? (partialKey => {
-          const ext = '.' + settings['view engine'],
-            views = settings.views + '/';
-            return i => readPartial(setPath(views, partials[i], ext));
-          })() : i => readPartial(partials[i]);
+        const applySettings = partialKey => {
+          const ext = '.' + settings['view engine']; 
+          if(typeof settings.views === 'string') {
+            return i => readPartial(setPath(settings.views, partials[i], ext));
+          }
+          const views = settings.views.slice();
+          const requestFiles = i => {
+            const searchFile = (resolve, reject) => {
+              const getContent = (err, content) => {
+                if (err) {
+                  return views.length ? repeatSearch() : reject(new Error(err));
+                }
+                resolve(content);
+              };
+              const repeatSearch = () => fs.readFile(setPath(views.shift(), partials[i], ext), 'utf-8', getContent);
+              repeatSearch();
+            }
+            return new Promise(searchFile);
+          };
+          return requestFiles;
+        };
+        const setPartial = settings ? applySettings() : i => readPartial(partials[i]);
         localsKeys.push(...partialsKeys);
         return Promise.all(partialsKeys.map(setPartial))
           .then(values => {
