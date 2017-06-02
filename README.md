@@ -144,8 +144,7 @@ es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, cb);
 // sync - both callback function and partials need be omitted and 'template' option set to true
 const compiled = es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'});
 ```
-es6Renderer allows both synchronous and asynchronous invocations. If string is rendered as in the examples provided above a 'template' option needs to be set to true. The preceding synchronous invocation returns an output immediately in response to the function execution. Alternatively, you can specify partials and omit template parameter to force file lookup and content reading and invoke the function asynchronously. 
-
+The template engine allows both synchronous and asynchronous method invocations. If string is rendered as in the examples provided above a 'template' option needs to be set to true. The preceding synchronous invocation returns an output immediately in response to the function execution. Alternatively, you can specify partials and omit template parameter to force file lookup and content reading and invoke the function asynchronously. 
 
 
 #### Compiling a template
@@ -198,7 +197,22 @@ es6Renderer('view/templateA.html', {
 ```
 #### Precompiling
 
-ES6 Renderer allows us bypassing Express view eendering for speed and modularity. 
+ES6 Renderer allows us bypassing Express view rendering for speed and modularity. Compiling a template is much slower than rendering it, so when it comes to speed, we should precompile our templates as part of the optimisation process. The result of precompilation can be stored to an object:
+```javascript
+const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
+const precompiled = es6Renderer(text, 'engineName', 'place');
+```
+and then invoked whenver needed:
+```javascript
+console.log(precompiled('ES6 Renderer', 'multiverse'));
+```
+To make use of this precompilation, templates should be compiled with names that an compiler would expect and the result function called with an argument list that consists of values relative to the names. If no property name is defined a default one is created with a value of '$': 
+```javascript
+const text = '${$.engineName} - The fastest javascript template string engine in the whole ${$.place}!';
+console.log(es6Renderer(text)({ engineName: 'ES6 Renderer', place: 'multiverse' });
+```
+This allows us to create an application that is more flexible, independent from a framework, easier to understand and better performing.
+
 
 
 #### Conditional statements
