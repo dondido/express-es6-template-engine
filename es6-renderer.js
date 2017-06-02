@@ -12,12 +12,11 @@ const getPartial = (path, cb = 'resolveNeutral') => {
   return new Promise(findFile);
 };
     
-module.exports = (path, options, cb) => {
+module.exports = (path, options, render = (err, content) => err || content) => {
   if(options === undefined || typeof options === 'string') {
     return compile(path);
   }
-  const render = cb || ((err, content) => err || content);
-  const {locals = {}, partials = {}, settings} = options;
+  const {locals = {}, partials = {}, settings, template} = options;
   
   const assign = (err, content) => {
     if(err) {
@@ -55,7 +54,7 @@ module.exports = (path, options, cb) => {
     }
     return render(null, compile(content, localsKeys)(...localsValues));
   };
-  if (cb === undefined) {
+  if (template) {
     return assign(null, path);
   }
   fs.readFile(path, 'utf-8', assign);
