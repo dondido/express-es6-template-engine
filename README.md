@@ -1,7 +1,7 @@
 Express ES6 string template engine
 ======
 
-ES6 Renderer is simple, super fast, and extendable Template Engine for the Express Framework which uses pure ES6 Javascript syntax.
+ES6 Renderer is simple, super fast, and extendable Template Engine for Node and Express applications which uses pure ES6 Javascript syntax.
 It works by scanning files in a working directory, then reading the contents of the files and converting them from plain strings to ES6 template strings. ES6 template strings are string literals enclosed by the back-tick. They feature String Interpolation, Embedded Expressions, Multiline strings and String Tagging for safe HTML escaping, localisation, etc. Once convertion is completed its then compiled to plain text by the V8 engine, harnessing 100% of its power. Being less than 1kb, ES6 Renderer offloads a lot of the processing directly to the V8 interpreter, which compiles the code and runs as fast as the rest of the Express App. In fact, ES6 Renderer shouldn't add any overhead to the project at all! It should also allow us to implement any functionality we like within the bounds of Javascript.
 
 Minimum requirements Node.js `v4.0.0`.
@@ -133,16 +133,25 @@ ES6 Renderer rendering functionality has separate scanning, parsing, string gene
 Compiling has the following syntax:
 
 ```javascript
-var titleTpl = '${engineName} - The fastest javascript template string engine!',
-    cb = (err, content) => err || content,
-    es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
+const titleTpl = '${engineName} - The fastest javascript template string engine!';
+const cb = (err, content) => err || content;
+
+// engine version prior to 2.0.0 - If string is rendered 'template' option needs to be set to true
+es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, template: true}, cb);
+
+// async - partials option needs to be omitted
+es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, cb);
+// sync - both callback function and partials need be omitted and 'template' option set to true
+const compiled = es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'});
 ```
-If string is rendered as in the example provided above a 'template' option needs to be set to true.
+es6Renderer allows both synchronous and asynchronous invocations. If string is rendered as in the examples provided above a 'template' option needs to be set to true. The preceding synchronous invocation returns an output immediately in response to the function execution. Alternatively, you can specify partials and omit template parameter to force file lookup and content reading and invoke the function asynchronously. 
+
+
 
 #### Compiling a template
 
 The two functions `app.render` and `es6Renderer` are almost identical, but they require slightly different parameters to be passed. While `app.render` uses an absolute path, or a path relative to the views setting, `es6Renderer` expects a path relative to root folder.
-They both return the rendered content of a view via the callback function. The output in the two examples provided below is the same:
+They both return the rendered content of a view via the callback function. The callback function which is provided as a third parameter is called once the asynchronous activity is completed. The output in the two examples provided below is the same:
 
 ```javascript
 app.render('index', {
@@ -158,7 +167,15 @@ es6Renderer('view/index.html', {
   }
 }, (err, content) => err || content);
 ```
-On average `es6Renderer` yields slightly better performance than `app.render`.
+On average `es6Renderer` yields slightly better performance than `app.render`. Async function invocation of `es6Renderer` also returns a promise, which enables us to chain method calls:
+```javascript
+const compile = es6Renderer('view/index.html', {
+  partials: {
+    template: 'views/template.html'
+  }
+}, (err, content) => err || content);
+compile.then(output => res.send(output))
+```
 
 #### Compiling a nested template
 
@@ -179,6 +196,10 @@ es6Renderer('view/templateA.html', {
   }
 }, renderPage);
 ```
+#### Precompiling
+
+ES6 Renderer allows us bypassing Express view eendering for speed and modularity. 
+
 
 #### Conditional statements
 
