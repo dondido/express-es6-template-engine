@@ -206,7 +206,7 @@ and then invoked whenver needed:
 ```javascript
 console.log(precompiled('ES6 Renderer', 'multiverse'));
 ```
-To make use of this precompilation, templates should be compiled with names that an compiler would expect and the result function called with an argument list that consists of values relative to the names. If no property name is defined a default one is created with a value of '$': 
+To make use of this precompilation, templates should be compiled with names that the compiler would expect and the result function called with an argument list that consists of values relative to the names. If no property name is defined a default one is created with a value of '$': 
 ```javascript
 const text = '${$.engineName} - The fastest javascript template string engine in the whole ${$.place}!';
 console.log(es6Renderer(text)({ engineName: 'ES6 Renderer', place: 'multiverse' });
