@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Express ES6 template engine</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <header class="header" role="banner" itemscope="itemscope" itemtype="http://schema.org/Header">
+    <div class="header-content">
+      <h1 class="header-logo" itemprop="headline">
+        <a class="header-logo-link" href="/">Polling Predictions</a>
+      </h1>
+      <nav class="navigation" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <input type="checkbox" id="navigation-checkbox">
+        <label for="navigation-checkbox" class="burger"></label>
+        <ul class="nav-items">
+          <li class="logged-out"><a class="nav-link" href="/about">About</a>
+          <li class="logged-out"><a class="nav-link" href="/tags">Tags</a>
+          <li class="logged-out"><a class="nav-link" href="/submit">Submit</a>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" role="main" itemscope itemprop="mainContentOfPage" class="main-content">
+    ${main}
+  </main>
+  <footer class="footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
+    <div class="footer-content">
+      <div class="credentials">&copy; polling-predictions.com</div>
+    </div>
+  </footer>
+  <script></script>
+</body>
+</html>
