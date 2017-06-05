@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://olado.github.io/doT/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="description" content="ES6Renderer - the fastest and concise javascript template engine for Node.js and browsers">
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+		@import url(https://fonts.googleapis.com/css?family=Oswald);
+		body {
+			max-width: 50em;
+			margin: 0 auto;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		    font-size: 14px;
+		    line-height: 20px;
+		    color: #333;
+		}
+		textarea,
+		.result {
+			border: 1px solid #999;
+			resize: vertical;
+			padding: 1ex;
+			border-radius: 2px;
+			width: 100%;
+			color: #666;
+    		box-sizing: border-box;
+		}
+		textarea {
+			height: 14ex;
+		}
+		.ranking {
+			color: #f44336;
+			min-width: 108px;
+			vertical-align: bottom;
+		}
+		.engine-name {
+			color: #f44336;
+			min-width: 100px;
+			text-align: right;
+		}
+		.engine-name:after {
+			content: ' » ';
+			color: yellow;
+		}
+		.benchmarks {
+			color: yellow;
+			font-weight: bold;
+    		background: #ccc;
+			min-width: 350px;
+			width: 100%;
+		}
+		tbody tr:first-child td {
+			color: #4a9a07;
+		}
+		table tbody td.ops {
+		    min-width: 90px;
+		    padding-right: 10px;
+		    width: 16%;
+		    text-align: right;
+		    vertical-align: bottom;
+		    color: #1e7f9a;
+		}
+
+		.benchmark-title {
+			text-align: center;
+		}
+
+		.snip1296 {
+			font-family: 'Raleway', Arial, sans-serif;
+			position: relative;
+			color: #bdbdbd;
+			margin: 80px auto;
+			max-width: 285px;
+			width: 100%;
+			text-align: center;
+			font-size: 16px;
+			box-sizing: content-box;
+		}
+		.snip1296 h1,
+		.snip1296 h5 {
+			margin: 0;
+			text-transform: uppercase;
+		}
+		.snip1296 h1 {
+			font-family: 'Oswald', Arial, sans-serif;
+			font-size: 2.8em;
+			line-height: 50px;
+			position: relative;
+			color: #1e7f9a;
+			text-align: center;
+			margin: 0 0 7px;
+		}
+		.snip1296 h5 {
+			margin: 0 40px;
+			padding: 5px 0;
+			font-weight: 500;
+			color: #4a9a07;
+			border-top: 4px solid #bdbdbd;
+			border-bottom: 4px solid #bdbdbd;
+			white-space: nowrap;
+		}
+		.snip1296 h5:after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: 113px;;
+			left: 50%;
+			transform: translate(-50%);
+			border-width: 20px 30px;
+			border-style: solid;
+			border-color: #f44336 #f44336 transparent #f44336;
+		}
+		.snip1296 h6 {
+			margin: 0 0 2px;
+			position: relative;
+			text-transform: uppercase;
+			letter-spacing: 5px;
+		}
+		.sash {
+		    text-transform: uppercase;
+		    transform: rotate(45deg);
+		    font-family: 'Raleway', Arial, sans-serif;
+		    display: block;
+		    position: absolute;
+		    top: 50px;
+		    right: -57px;
+		    background: #1e7f9a;
+		    color: white;
+		    padding: 1ex 4em;
+		    text-decoration: none;
+		}
+		code {
+		    background: beige;
+		    padding: 0 2px;
+		    border-radius: 2px;
+    		border: 1px solid #999;
+		}
+	</style>
+	<title>Express ES6 temlpate engine - the fastest and unopinionated javascript template engine for Node and Express</title>
+</head>
+<body>
+<a href="https://github.com/dondido/express-es6-template-engine" class="sash">Fork me on GitHub</a>
+
+<div class="snip1296">
+  <h6>Est. 2015</h6>
+  <h1>ES6RENDERER</h1>
+  <h5>Express Template Engine</h5>
+</div>
+<!--<h1>doT.js</h1>-->
+<h2 class="subtitle">The fastest and unopinionated javascript template<br>for Node and Express.</h2>
+
+<h2>Origins</h2>
+<p>
+Express ES6 temlpate engine was created in search of the fastest and unopinionated JavaScript templating markup with emphasis on performance under V8 and Node.
+It shows great performance for both Node and Express.
+<br>
+</p>
+<p></p>
+<p></p>
+
+<h2>Source</h2>
+<a href="https://github.com/dondido/express-es6-template-engine">github.com/dondido/express-es6-template-engine</a>
+<p>by Dian Dimitrov, MIT license</p>
+
+<h2>Features</h2>
+<ul>
+<li>No Dependencies
+</li><li>Fully Configurable
+</li><li>Compiled and interpreted by V8 (Super Fast)
+</li><li>Learning new syntax is not required
+</li><li>Partials Support
+</li><li>Conditional Support
+</li><li>Iterators Support
+</li><li>conditionals support
+</li><li>Native Javascript Support
+</li><li>Precompiled templates
+</li>
+</ul>
+<p>
+	<h2>Online compiler</h2> 
+	<p>Every developer has been in a situation where they simply want to try and evaluate a framework or library, without having to install it or include it in a project. The online compiler provides a custom environment to test and fiddle with Express ES6 template engine functionality right inside a browser and see the results as they type in real time. A quick tour of the engine logic implementation will give you a better understanding of what it provides and why you should use it. </p><p> The general rendering process of the engine is rather simple. <code>es6Renderer('template', {locals})</code> compiles the provided source code into a javaScript function. Calling that resultant function with an object as an argument returns a string of HTML rendered with our data. This methods combine compiling and rendering into one step. The <code>'template'</code> string used as a first argument is a reference to a <code>'template.html'</code> file in a view directory with a content presented in the first text area below (see Template). The data object called <code>'locals'</code> provided in the second text area (see Data) has properties that are local variables within the content.</p> 
+	<h4>Template</h4>
+	<textarea autocomplete="off" class="template-input"><div class="simple-1" style="background-color: blue; border: 1px solid black"><div class="colors"><span>Hello ${name}! <strong>You have ${messageCount} messages!</strong></span><ul>${colors ? colors.reduce((m, color) => m + '<li>' + color + '</li>', '') : '<li>No colors!</li>'}</ul></div><button class="${primary ? 'primary' : 'secondary'}">${buttonLabel}</button></div></textarea>
+	<h4>Data</h4>
+	<textarea autocomplete="off" class="data-input">
+{
+    "name": "George Washington",
+    "messageCount": 999,
+    "colors": ["red", "green", "blue", "yellow", "orange", "pink", "black", "white", "beige", "brown", "cyan", "magenta"],
+    "primary": true,
+    "buttonLabel": "Welcome to the wonderful world of templating engines!"
+}
+	</textarea>
+	<h4>Result</h4>
+	<div class="result"></div>
+</p>
+<div style="clear:both"></div>
+<h3>Compile time evaluation vs Runtime evaluation</h3>
+You can improve performance further if you use compile time evaluation. It is useful in cases when the data that you want to use are not changing with each run of the template. Think of it as defines or constant variables.
+<p>It is also used to statically compile partials. This comes in handy when you want to include similar header and footer on multiple pages. doT also allows to customize partial right from the template that will include it.</p>
+
+<h2>Benchmarks</h2>
+<p>
+Here is the <a href="http://jsperf.com/dom-vs-innerhtml-based-templating/53">first benchmark</a> of doT in jsperf.<br>
+
+<table class="benchmarks">
+	<thead>
+		<tr><td colspan="3" class="benchmark-title">RUNTIME PERFORMANCE</td></tr>
+	</thead>
+	<tbody>
+		<tr><td class="engine-name">✓ es6Renderer</td><td class="ops">300,987 op/s</td><td class="ranking">(fastest)</td></tr>
+		<tr><td class="engine-name">✗ pug</td><td class="ops">155,015 op/s</td><td class="ranking">(48.50% slower)</td></tr>
+		<tr><td class="engine-name">✗ marko</td><td class="ops">143,375 op/s</td><td class="ranking">(52.37% slower)</td></tr>
+		<tr><td class="engine-name">✗ dot</td><td class="ops">129,364 op/s</td><td class="ranking">(57.02% slower)</td></tr>
+		<tr><td class="engine-name">✗ handlebars</td><td class="ops">46,871 op/s</td><td class="ranking">(84.43% slower)</td></tr>
+		<tr><td class="engine-name">✗ swig</td><td class="ops">43,996 op/s</td><td class="ranking">(85.38% slower)</td></tr>
+		<tr><td class="engine-name">✗ dust</td><td class="ops">39,834 op/s</td><td class="ranking">(86.77% slower)</td></tr>
+		<tr><td class="engine-name">✗ jade</td><td class="ops">21,373 op/s</td><td class="ranking">(92.90% slower)</td></tr>
+		<tr><td class="engine-name">✗ nunjucks</td><td class="ops">18,313 op/s</td><td class="ranking">(93.92% slower)</td></tr>
+		<tr><td class="engine-name">✗ vue</td><td class="ops">5,251 op/s</td><td class="ranking">(98.26% slower)</td></tr>
+		<tr><td class="engine-name">✗ react</td><td class="ops">2,218 op/s</td><td class="ranking">(99.26% slower)</td></tr>
+	</tbody>
+
+</table>
+
+
+Here is a more <a href="http://jsperf.com/dom-vs-innerhtml-based-templating/413">recent benchmark</a> against the new and upgraded engines that popped up lately.
+<br>
+People are constantly adding new javascript template engine benchmarks.
+</p>
+Additional benchmarks are available in <a href="https://github.com/olado/doT/tree/master/benchmarks">github</a>
+<div class="smaller">
+<p>
+To run the benchmarks for measuring execution of compiled templates:
+<br>
+In the browser: navigate to benchmarks/index.html or go <a href="http://olado.github.com/doT/bench.html">here</a>
+<br>
+With node: node benchmarks/templatesBench.js
+</p>
+<p>
+To run the benchmarks for measuring compilation speed:
+<br>In the browser: navigate to benchmarks/genspeed.html
+<br>
+With node: node benchmarks/compileBench.js
+</p></div>
+
+
+<h2>Issues</h2>
+<a href="https://github.com/dondido/express-es6-template-engine/issues">github.com/dondido/express-es6-template-engine/issues</a>
+
+<h2>Author</h2>
+<a href="http://lameculture.gamesurprise.com/">@dondido</a>
+
+<div style="margin-top:20px">Express ES6 Template Engine by Dian Dimitrov, MIT license</div>
+
+<!--[if lt IE 9]>
+<script src="http://bestiejs.github.com/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+	const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
+	const templateInput = document.querySelector('.template-input');
+	const dataInput = document.querySelector('.data-input');
+	const result = document.querySelector('.result');
+	let data;
+	const updateResult = () => {
+		try {
+			if(typeof data === 'string' || !data) {
+				return result.textContent = compile(templateInput.value)(data);
+			}
+			const dataKeys = Object.keys(data);
+	        return result.textContent = compile(templateInput.value, dataKeys)(...dataKeys.map(i => data[i]));
+        } catch(e) {
+	        result.textContent = 'Could not parse template input...'
+	    }	
+		
+	}
+	const updateTemplate = () => {
+	    try {
+	        updateResult();
+	    } catch(e) {
+	        result.textContent = 'Could not parse template input...'
+	    }
+	};
+	const updateData = () => {
+	    try {
+	        data = eval('(' + dataInput.value + ')');
+	        
+	    } catch(e) {
+	    	data = dataInput.value;
+	    }
+	    updateResult();
+	};
+	templateInput.addEventListener('keyup', updateResult);
+	dataInput.addEventListener('keyup', updateData);
+	updateData();
+</script>
+
+</body></html>
