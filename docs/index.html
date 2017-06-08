@@ -7,7 +7,9 @@
 		@import url(https://fonts.googleapis.com/css?family=Raleway:500);
 		@import url(https://fonts.googleapis.com/css?family=Oswald);
 		body {
-			max-width: 50em;
+			background: #f9f9f9 url(bg.jpg);
+			max-width: 52em;
+			padding: 0 1em;
 			margin: 0 auto;
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		    font-size: 14px;
@@ -22,6 +24,7 @@
 			border-radius: 2px;
 			width: 100%;
 			color: #666;
+			background: white;
     		box-sizing: border-box;
 		}
 		textarea {
@@ -66,7 +69,7 @@
 			font-family: 'Raleway', Arial, sans-serif;
 			position: relative;
 			color: #bdbdbd;
-			margin: 80px auto;
+			margin: 50px auto 80px;
 			max-width: 285px;
 			width: 100%;
 			text-align: center;
@@ -101,7 +104,7 @@
 			position: absolute;
 			width: 0;
 			height: 0;
-			top: 113px;;
+			top: 113px;
 			left: 50%;
 			transform: translate(-50%);
 			border-width: 20px 30px;
@@ -134,52 +137,28 @@
 			border: 1px solid #999;
 		}
 
+		.feature-list {
+		    display: flex;
+		    width: 100%;
+		    flex-wrap: wrap;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+
+		.author-href {
+			padding-bottom: 4ex;
+		}
+
 		.ch-item {
 			width: 220px;
 			height: 220px;
 			border-radius: 50%;
 			position: relative;
+			margin-bottom: 2ex;
 			box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 			cursor: default;
 		}
-		.ch-info-wrap, 
-		.ch-info{
-			position: absolute;
-			width: 180px;
-			height: 180px;
-			border-radius: 50%;
-			transition: all 0.4s ease-in-out;
-		}
-		.ch-info-wrap {
-			top: 20px;
-			left: 20px;
-			background: #f9f9f9;
-			box-shadow: 
-				0 0 0 20px rgba(255,255,255,0.2), 
-				inset 0 0 3px rgba(115,114, 23, 0.8);
-			perspective: 800px;
-		}
-		.ch-info {
-			transform-style: preserve-3d;
-		}
-		.ch-info > div {
-			display: block;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			border-radius: 50%;
-			background-position: center center;
-			transition: all 0.6s ease-in-out;
-		}
-		.ch-info .ch-info-front {
-			transform-origin: 50% 100%;	
-			z-index: 100;
-			box-shadow: 
-				inset 2px 1px 4px rgba(0,0,0,0.1);
-		}
-		.ch-info .ch-info-back {
-			background: rgba(230,132,107,0);
-		}
+
 		.ch-img-1 { 
 			background-image: url(1.jpg);
 		}
@@ -191,16 +170,65 @@
 		.ch-img-3 { 
 			background-image: url(3.jpg);
 		}
+		.ch-img-4 { 
+			background-image: url(4.jpg);
+		}
+
+		.ch-img-5 { 
+			background-image: url(5.jpg);
+		}
+
+		.ch-img-6 { 
+			background-image: url(6.jpeg);
+		}
+
+		.ch-info-wrap {
+			position: absolute;
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			perspective: 800px;
+			transition: all 0.4s ease-in-out;
+			top: 20px;
+			left: 20px;
+			background: #f9f9f9 url(../images/bg.jpg);
+			box-shadow: 
+				0 0 0 20px rgba(255,255,255,0.2), 
+				inset 0 0 3px rgba(115,114, 23, 0.8);
+
+		}
+
+		.ch-info {
+			position: absolute;
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			transition: all 0.4s ease-in-out;
+			transform-style: preserve-3d;
+		}
+
+		.ch-info > div {
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-position: center center;
+			backface-visibility: hidden;
+		}
+
+		.ch-info .ch-info-back {
+			transform: rotate3d(0,1,0,180deg);
+			background: #000;
+		}
 
 		.ch-info h3 {
 			color: #fff;
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			font-size: 14px;
-			margin: 0 25px;
-			padding: 20px 0 0 0;
+			padding: 15px 20px 0 20px;
 			text-align: center;
-			font-family: 'Open Sans', Arial, sans-serif;
 			text-shadow: 
 				0 0 1px #fff, 
 				0 1px 2px rgba(0,0,0,0.3);
@@ -209,8 +237,9 @@
 		.ch-info p {
 			color: #fff;
 			padding: 10px 5px;
+			margin: 0 20px;
 			font-style: italic;
-			margin: 0 30px;
+			text-align: center;
 			font-size: 12px;
 			border-top: 1px solid rgba(255,255,255,0.5);
 		}
@@ -231,17 +260,15 @@
 			color: rgba(255,242,34, 0.8);
 		}
 
-		.ch-item:hover .ch-info-front {
-			transform: rotate3d(1,0,0,-180deg);
+		.ch-item:hover .ch-info-wrap {
 			box-shadow: 
-				inset 0 0 5px rgba(255,255,255,0.2), 
-				inset 0 0 3px rgba(0,0,0,0.3);
+				0 0 0 0 rgba(255,255,255,0.8), 
+				inset 0 0 3px rgba(115,114, 23, 0.8);
 		}
 
-		.ch-item:hover .ch-info-back {
-			background: rgba(230,132,107,0.6);
+		.ch-item:hover .ch-info {
+			transform: rotate3d(0,1,0,-180deg);
 		}
-
 
 	</style>
 	<title>Express ES6 temlpate engine - the fastest and unopinionated javascript template engine for Node and Express</title>
@@ -261,78 +288,75 @@
 <p>The art of creating code that is "environment agnostic" recognised as "Isomorphic JavaScript", allows us to render the views of the application from the server (during the initialisation of the app) and then keep rendering the other views directly in the browser (avoiding a full page refresh) while the user keep navigating across the different sections. One of the advantages of having ES6 renderer as template engine for the backend of a web application is that one have to deal only with javascript template literals as a single syntax across the web stack. With this in mind the engine can be seen as the perfect tool that facilitates logic sharing between the frontend and the backend to reduce the codebase duplication between the browser and the server to the bare minimun. Express ES6 temlpate engine is a minimal and flexible Node web application library, providing a robust set of features for building single and multi-page, and hybrid web applications. As a framework-independent technology, ES6 Renderer is an engine one can adopt and hit the ground running with immediately.
 </p>
 
-<h2>Source</h2>
-<a href="https://github.com/dondido/express-es6-template-engine">github.com/dondido/express-es6-template-engine</a>
-<p>by Dian Dimitrov, MIT license</p>
-
-
-<div class="ch-item ch-img-1">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-1"></div>
-			<div class="ch-info-back">
-				<h3>NO DEPENDENCIES</h3>
-				<p>A simple and lightweight vanilla library.</p>
+<h2>Features</h2>
+<div class="feature-list">
+	<div class="ch-item ch-img-1">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-1"></div>
+				<div class="ch-info-back">
+					<h3>NO DEPENDENCIES</h3>
+					<p>A simple and lightweight vanilla library.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ch-item ch-img-2">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-2"></div>
+				<div class="ch-info-back">
+					<h3>ZERO LEARNING</h3>
+					<p>Grasping new syntax is not required.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ch-item ch-img-3">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-3"></div>
+				<div class="ch-info-back">
+					<h3>LOGIC STATEMENTS</h3>
+					<p>Conditional operators and ternary expressions.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ch-item ch-img-4">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-4"></div>
+				<div class="ch-info-back">
+					<h3>LOOPS (ITERATIONS)</h3>
+					<p>Native ways to iterate over arrays and objects.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ch-item ch-img-5">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-5"></div>
+				<div class="ch-info-back">
+					<h3>PARTIALS SUPPORT</h3>
+					<p>Layout and partials support.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ch-item ch-img-6">
+		<div class="ch-info-wrap">
+			<div class="ch-info">
+				<div class="ch-info-front ch-img-6"></div>
+				<div class="ch-info-back">
+					<h3>TEMPLATE PRECOMPILATION</h3>
+					<p>Precompiling and template caching.</p>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="ch-item ch-img-2">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-2"></div>
-			<div class="ch-info-back">
-				<h3>NO LEARNING</h3>
-				<p>Grasping new syntax is not required.</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="ch-item ch-img-3">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-3"></div>
-			<div class="ch-info-back">
-				<h3>LOGIC STATEMENTS</h3>
-				<p>Conditional operators and ternary expressions.</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="ch-item ch-img-4">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-4"></div>
-			<div class="ch-info-back">
-				<h3>ITERATION (LOOPS)</h3>
-				<p>Native ways to iterate over arrays and objects.</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="ch-item ch-img-5">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-5"></div>
-			<div class="ch-info-back">
-				<h3>PARTIALS SUPPORT</h3>
-				<p>Layout and partials support.</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="ch-item ch-img-6">
-	<div class="ch-info-wrap">
-		<div class="ch-info">
-			<div class="ch-info-front ch-img-6"></div>
-			<div class="ch-info-back">
-				<h3>PRECOMPILATION STAGE</h3>
-				<p>Precompiling and template caching.</p>
-			</div>
-		</div>
-	</div>
-</div>
-
 <p>
 	<h2>Online compiler</h2> 
 	<p>Every developer has been in a situation where they simply want to try and evaluate a framework or library, without having to install it or include it in a project. The online compiler provides a custom environment to test and fiddle with Express ES6 template engine functionality right inside a browser and see the results as they type in real time. A quick tour of the engine logic implementation will give you a better understanding of what it provides and why you should use it. </p><p> The general rendering process of the engine is rather simple. <code>es6Renderer('template', {locals})</code> compiles the provided source code into a javaScript function. Calling that resultant function with an object as an argument returns a string of HTML rendered with our data. This methods combine compiling and rendering into one step. The <code>'template'</code> string used as a first argument is a reference to a <code>'template.html'</code> file in a view directory with a content presented in the first text area below (see Template). The data object called <code>'locals'</code> provided in the second text area (see Data) has properties that are local variables within the content.</p> 
@@ -375,14 +399,15 @@
 </table>
 <p>As we see from the chart above ES6 Renderer is the fastest of the all engines compared. It was almost twice as fast as the second place runner on the list. The data presented above is not intended to trash about any of the view engines. The procedure to make the comparison on performance is quite simple and not scientific at all. From a technical point of view it's up to the developer to choose the templating engine that makes him more productive. It is also important to bear in mind that for frontend designers accustomed to code in HTML only, the learning curve for them will be of relevance.</p>
 
+<h2>Source</h2>
+<a href="https://github.com/dondido/express-es6-template-engine">github.com/dondido/express-es6-template-engine</a>
+<p>by Dian Dimitrov, MIT license</p>
 
 <h2>Issues</h2>
 <a href="https://github.com/dondido/express-es6-template-engine/issues">github.com/dondido/express-es6-template-engine/issues</a>
 
 <h2>Author</h2>
-<a href="http://lameculture.gamesurprise.com/">@dondido</a>
-
-<div style="margin-top:20px">Express ES6 Template Engine by Dian Dimitrov, MIT license</div>
+<a href="http://lameculture.gamesurprise.com/" class="author-href">@dondido</a>
 
 <script type="text/javascript">
 	const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
