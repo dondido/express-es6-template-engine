@@ -135,8 +135,8 @@
 		}
 
 		.ch-item {
-			width: 100%;
-			height: 100%;
+			width: 220px;
+			height: 220px;
 			border-radius: 50%;
 			position: relative;
 			box-shadow: 0 1px 2px rgba(0,0,0,0.1);
@@ -185,11 +185,11 @@
 		}
 
 		.ch-img-2 { 
-			background-image: url(../images/17.jpg);
+			background-image: url(2.jpg);
 		}
 
 		.ch-img-3 { 
-			background-image: url(../images/18.jpg);
+			background-image: url(3.jpg);
 		}
 
 		.ch-info h3 {
@@ -198,8 +198,8 @@
 			letter-spacing: 2px;
 			font-size: 14px;
 			margin: 0 25px;
-			padding: 40px 0 0 0;
-			height: 90px;
+			padding: 20px 0 0 0;
+			text-align: center;
 			font-family: 'Open Sans', Arial, sans-serif;
 			text-shadow: 
 				0 0 1px #fff, 
@@ -271,27 +271,68 @@
 		<div class="ch-info">
 			<div class="ch-info-front ch-img-1"></div>
 			<div class="ch-info-back">
-				<h3>Services Image</h3>
-				<p>by Gumball Creative <a href="http://drbl.in/eFDk">View on Dribbble</a></p>
-			</div>	
+				<h3>NO DEPENDENCIES</h3>
+				<p>A simple and lightweight vanilla library.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ch-item ch-img-2">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-2"></div>
+			<div class="ch-info-back">
+				<h3>NO LEARNING</h3>
+				<p>Grasping new syntax is not required.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ch-item ch-img-3">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-3"></div>
+			<div class="ch-info-back">
+				<h3>LOGIC STATEMENTS</h3>
+				<p>Conditional operators and ternary expressions.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ch-item ch-img-4">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-4"></div>
+			<div class="ch-info-back">
+				<h3>ITERATION (LOOPS)</h3>
+				<p>Native ways to iterate over arrays and objects.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ch-item ch-img-5">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-5"></div>
+			<div class="ch-info-back">
+				<h3>PARTIALS SUPPORT</h3>
+				<p>Layout and partials support.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ch-item ch-img-6">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-6"></div>
+			<div class="ch-info-back">
+				<h3>PRECOMPILATION STAGE</h3>
+				<p>Precompiling and template caching.</p>
+			</div>
 		</div>
 	</div>
 </div>
 
-<h2>Features</h2>
-<ul>
-<li>No Dependencies
-</li><li>Fully Configurable
-</li><li>Compiled and interpreted by V8 (Super Fast)
-</li><li>Learning new syntax is not required
-</li><li>Partials Support
-</li><li>Conditional Support
-</li><li>Iterators Support
-</li><li>conditionals support
-</li><li>Native Javascript Support
-</li><li>Precompiled templates
-</li>
-</ul>
 <p>
 	<h2>Online compiler</h2> 
 	<p>Every developer has been in a situation where they simply want to try and evaluate a framework or library, without having to install it or include it in a project. The online compiler provides a custom environment to test and fiddle with Express ES6 template engine functionality right inside a browser and see the results as they type in real time. A quick tour of the engine logic implementation will give you a better understanding of what it provides and why you should use it. </p><p> The general rendering process of the engine is rather simple. <code>es6Renderer('template', {locals})</code> compiles the provided source code into a javaScript function. Calling that resultant function with an object as an argument returns a string of HTML rendered with our data. This methods combine compiling and rendering into one step. The <code>'template'</code> string used as a first argument is a reference to a <code>'template.html'</code> file in a view directory with a content presented in the first text area below (see Template). The data object called <code>'locals'</code> provided in the second text area (see Data) has properties that are local variables within the content.</p> 
@@ -312,7 +353,8 @@
 </p>
 
 <h2>Benchmarks</h2>
-
+<p>It’s not uncommon that from time to time developers ask me about what template engine do I use and why. After my reply, they typically say something like: “isn’t that one slow?”. Usually, when developers talk in regards to performance, I always utter something like: “well, that depends on …”, and there one can insert his slow performance reasoning of choice, if it can be bad or not that bad.</p>
+<p>Benchmark testing was done with Marko's brilliant <a href="https://github.com/marko-js/templating-benchmarks">Templating benchmark suite</a>. Testing ES6 Renderer performance was a great opportunity to see how it stacked-up beside others. Our speed test compiled one main template containing an array of string, an object literal and conditional statements.</p>
 <table class="benchmarks">
 	<thead>
 		<tr><td colspan="3" class="benchmark-title">RUNTIME PERFORMANCE</td></tr>
@@ -330,10 +372,8 @@
 		<tr><td class="engine-name">✗ vue</td><td class="ops">5,251 op/s</td><td class="ranking">(98.26% slower)</td></tr>
 		<tr><td class="engine-name">✗ react</td><td class="ops">2,218 op/s</td><td class="ranking">(99.26% slower)</td></tr>
 	</tbody>
-
 </table>
-
-<p>Benchmark testing was done with Marko's brilliant <a href="https://github.com/marko-js/templating-benchmarks">Templating benchmark suite</a>. Testing ES6 Renderer performance was a great opportunity to see how it stacked-up beside others. Our speed test compiled one main template containing an array of string, an object literal and conditional statements.</p>
+<p>As we see from the chart above ES6 Renderer is the fastest of the all engines compared. It was almost twice as fast as the second place runner on the list. The data presented above is not intended to trash about any of the view engines. The procedure to make the comparison on performance is quite simple and not scientific at all. From a technical point of view it's up to the developer to choose the templating engine that makes him more productive. It is also important to bear in mind that for frontend designers accustomed to code in HTML only, the learning curve for them will be of relevance.</p>
 
 
 <h2>Issues</h2>
