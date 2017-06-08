@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!-- saved from url=(0038)https://olado.github.io/doT/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<meta name="description" content="ES6Renderer - the fastest and concise javascript template engine for Node.js and browsers">
+	<meta name="description" content="Express ES6 Template engine - from strings to backtick syntax and template literals">
 	<style>
 		@import url(https://fonts.googleapis.com/css?family=Raleway:500);
 		@import url(https://fonts.googleapis.com/css?family=Oswald);
@@ -60,11 +59,9 @@
 		    vertical-align: bottom;
 		    color: #1e7f9a;
 		}
-
 		.benchmark-title {
 			text-align: center;
 		}
-
 		.snip1296 {
 			font-family: 'Raleway', Arial, sans-serif;
 			position: relative;
@@ -118,24 +115,134 @@
 			letter-spacing: 5px;
 		}
 		.sash {
-		    text-transform: uppercase;
-		    transform: rotate(45deg);
-		    font-family: 'Raleway', Arial, sans-serif;
-		    display: block;
-		    position: absolute;
-		    top: 50px;
-		    right: -57px;
-		    background: #1e7f9a;
-		    color: white;
-		    padding: 1ex 4em;
-		    text-decoration: none;
+			text-transform: uppercase;
+			transform: rotate(45deg);
+			font-family: 'Raleway', Arial, sans-serif;
+			display: block;
+			position: absolute;
+			top: 50px;
+			right: -57px;
+			background: #1e7f9a;
+			color: white;
+			padding: 1ex 4em;
+			text-decoration: none;
 		}
 		code {
-		    background: beige;
-		    padding: 0 2px;
-		    border-radius: 2px;
-    		border: 1px solid #999;
+			background: beige;
+			padding: 0 2px;
+			border-radius: 2px;
+			border: 1px solid #999;
 		}
+
+		.ch-item {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			position: relative;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+			cursor: default;
+		}
+		.ch-info-wrap, 
+		.ch-info{
+			position: absolute;
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			transition: all 0.4s ease-in-out;
+		}
+		.ch-info-wrap {
+			top: 20px;
+			left: 20px;
+			background: #f9f9f9;
+			box-shadow: 
+				0 0 0 20px rgba(255,255,255,0.2), 
+				inset 0 0 3px rgba(115,114, 23, 0.8);
+			perspective: 800px;
+		}
+		.ch-info {
+			transform-style: preserve-3d;
+		}
+		.ch-info > div {
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-position: center center;
+			transition: all 0.6s ease-in-out;
+		}
+		.ch-info .ch-info-front {
+			transform-origin: 50% 100%;	
+			z-index: 100;
+			box-shadow: 
+				inset 2px 1px 4px rgba(0,0,0,0.1);
+		}
+		.ch-info .ch-info-back {
+			background: rgba(230,132,107,0);
+		}
+		.ch-img-1 { 
+			background-image: url(1.jpg);
+		}
+
+		.ch-img-2 { 
+			background-image: url(../images/17.jpg);
+		}
+
+		.ch-img-3 { 
+			background-image: url(../images/18.jpg);
+		}
+
+		.ch-info h3 {
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-size: 14px;
+			margin: 0 25px;
+			padding: 40px 0 0 0;
+			height: 90px;
+			font-family: 'Open Sans', Arial, sans-serif;
+			text-shadow: 
+				0 0 1px #fff, 
+				0 1px 2px rgba(0,0,0,0.3);
+		}
+
+		.ch-info p {
+			color: #fff;
+			padding: 10px 5px;
+			font-style: italic;
+			margin: 0 30px;
+			font-size: 12px;
+			border-top: 1px solid rgba(255,255,255,0.5);
+		}
+
+		.ch-info p a {
+			display: block;
+			color: rgba(255,255,255,0.7);
+			font-style: normal;
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: 9px;
+			letter-spacing: 1px;
+			padding-top: 4px;
+			font-family: 'Open Sans', Arial, sans-serif;
+		}
+
+		.ch-info p a:hover {
+			color: rgba(255,242,34, 0.8);
+		}
+
+		.ch-item:hover .ch-info-front {
+			transform: rotate3d(1,0,0,-180deg);
+			box-shadow: 
+				inset 0 0 5px rgba(255,255,255,0.2), 
+				inset 0 0 3px rgba(0,0,0,0.3);
+		}
+
+		.ch-item:hover .ch-info-back {
+			background: rgba(230,132,107,0.6);
+		}
+
+
 	</style>
 	<title>Express ES6 temlpate engine - the fastest and unopinionated javascript template engine for Node and Express</title>
 </head>
@@ -147,21 +254,29 @@
   <h1>ES6RENDERER</h1>
   <h5>Express Template Engine</h5>
 </div>
-<!--<h1>doT.js</h1>-->
+
 <h2 class="subtitle">The fastest and unopinionated javascript template<br>for Node and Express.</h2>
 
 <h2>Origins</h2>
-<p>
-Express ES6 temlpate engine was created in search of the fastest and unopinionated JavaScript templating markup with emphasis on performance under V8 and Node.
-It shows great performance for both Node and Express.
-<br>
+<p>The art of creating code that is "environment agnostic" recognised as "Isomorphic JavaScript", allows us to render the views of the application from the server (during the initialisation of the app) and then keep rendering the other views directly in the browser (avoiding a full page refresh) while the user keep navigating across the different sections. One of the advantages of having ES6 renderer as template engine for the backend of a web application is that one have to deal only with javascript template literals as a single syntax across the web stack. With this in mind the engine can be seen as the perfect tool that facilitates logic sharing between the frontend and the backend to reduce the codebase duplication between the browser and the server to the bare minimun. Express ES6 temlpate engine is a minimal and flexible Node web application library, providing a robust set of features for building single and multi-page, and hybrid web applications. As a framework-independent technology, ES6 Renderer is an engine one can adopt and hit the ground running with immediately.
 </p>
-<p></p>
-<p></p>
 
 <h2>Source</h2>
 <a href="https://github.com/dondido/express-es6-template-engine">github.com/dondido/express-es6-template-engine</a>
 <p>by Dian Dimitrov, MIT license</p>
+
+
+<div class="ch-item ch-img-1">
+	<div class="ch-info-wrap">
+		<div class="ch-info">
+			<div class="ch-info-front ch-img-1"></div>
+			<div class="ch-info-back">
+				<h3>Services Image</h3>
+				<p>by Gumball Creative <a href="http://drbl.in/eFDk">View on Dribbble</a></p>
+			</div>	
+		</div>
+	</div>
+</div>
 
 <h2>Features</h2>
 <ul>
@@ -195,14 +310,8 @@ It shows great performance for both Node and Express.
 	<h4>Result</h4>
 	<div class="result"></div>
 </p>
-<div style="clear:both"></div>
-<h3>Compile time evaluation vs Runtime evaluation</h3>
-You can improve performance further if you use compile time evaluation. It is useful in cases when the data that you want to use are not changing with each run of the template. Think of it as defines or constant variables.
-<p>It is also used to statically compile partials. This comes in handy when you want to include similar header and footer on multiple pages. doT also allows to customize partial right from the template that will include it.</p>
 
 <h2>Benchmarks</h2>
-<p>
-Here is the <a href="http://jsperf.com/dom-vs-innerhtml-based-templating/53">first benchmark</a> of doT in jsperf.<br>
 
 <table class="benchmarks">
 	<thead>
@@ -224,26 +333,7 @@ Here is the <a href="http://jsperf.com/dom-vs-innerhtml-based-templating/53">fir
 
 </table>
 
-
-Here is a more <a href="http://jsperf.com/dom-vs-innerhtml-based-templating/413">recent benchmark</a> against the new and upgraded engines that popped up lately.
-<br>
-People are constantly adding new javascript template engine benchmarks.
-</p>
-Additional benchmarks are available in <a href="https://github.com/olado/doT/tree/master/benchmarks">github</a>
-<div class="smaller">
-<p>
-To run the benchmarks for measuring execution of compiled templates:
-<br>
-In the browser: navigate to benchmarks/index.html or go <a href="http://olado.github.com/doT/bench.html">here</a>
-<br>
-With node: node benchmarks/templatesBench.js
-</p>
-<p>
-To run the benchmarks for measuring compilation speed:
-<br>In the browser: navigate to benchmarks/genspeed.html
-<br>
-With node: node benchmarks/compileBench.js
-</p></div>
+<p>Benchmark testing was done with Marko's brilliant <a href="https://github.com/marko-js/templating-benchmarks">Templating benchmark suite</a>. Testing ES6 Renderer performance was a great opportunity to see how it stacked-up beside others. Our speed test compiled one main template containing an array of string, an object literal and conditional statements.</p>
 
 
 <h2>Issues</h2>
@@ -253,10 +343,6 @@ With node: node benchmarks/compileBench.js
 <a href="http://lameculture.gamesurprise.com/">@dondido</a>
 
 <div style="margin-top:20px">Express ES6 Template Engine by Dian Dimitrov, MIT license</div>
-
-<!--[if lt IE 9]>
-<script src="http://bestiejs.github.com/json3/lib/json3.min.js"></script>
-<![endif]-->
 
 <script type="text/javascript">
 	const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
