@@ -136,7 +136,6 @@
 			border-radius: 2px;
 			border: 1px solid #999;
 		}
-
 		.feature-list {
 		    display: flex;
 		    width: 100%;
@@ -144,11 +143,9 @@
 		    justify-content: space-between;
 		    align-items: center;
 		}
-
 		.author-href {
 			padding-bottom: 4ex;
 		}
-
 		.ch-item {
 			width: 220px;
 			height: 220px;
@@ -158,30 +155,24 @@
 			box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 			cursor: default;
 		}
-
 		.ch-img-1 { 
 			background-image: url(1.jpg);
 		}
-
 		.ch-img-2 { 
 			background-image: url(2.jpg);
 		}
-
 		.ch-img-3 { 
 			background-image: url(3.jpg);
 		}
 		.ch-img-4 { 
 			background-image: url(4.jpg);
 		}
-
 		.ch-img-5 { 
 			background-image: url(5.jpg);
 		}
-
 		.ch-img-6 { 
 			background-image: url(6.jpeg);
 		}
-
 		.ch-info-wrap {
 			position: absolute;
 			width: 180px;
@@ -195,9 +186,7 @@
 			box-shadow: 
 				0 0 0 20px rgba(255,255,255,0.2), 
 				inset 0 0 3px rgba(115,114, 23, 0.8);
-
 		}
-
 		.ch-info {
 			position: absolute;
 			width: 180px;
@@ -206,7 +195,6 @@
 			transition: all 0.4s ease-in-out;
 			transform-style: preserve-3d;
 		}
-
 		.ch-info > div {
 			display: block;
 			position: absolute;
@@ -216,12 +204,10 @@
 			background-position: center center;
 			backface-visibility: hidden;
 		}
-
 		.ch-info .ch-info-back {
 			transform: rotate3d(0,1,0,180deg);
 			background: #000;
 		}
-
 		.ch-info h3 {
 			color: #fff;
 			text-transform: uppercase;
@@ -233,7 +219,6 @@
 				0 0 1px #fff, 
 				0 1px 2px rgba(0,0,0,0.3);
 		}
-
 		.ch-info p {
 			color: #fff;
 			padding: 10px 5px;
@@ -243,7 +228,6 @@
 			font-size: 12px;
 			border-top: 1px solid rgba(255,255,255,0.5);
 		}
-
 		.ch-info p a {
 			display: block;
 			color: rgba(255,255,255,0.7);
@@ -255,21 +239,17 @@
 			padding-top: 4px;
 			font-family: 'Open Sans', Arial, sans-serif;
 		}
-
 		.ch-info p a:hover {
 			color: rgba(255,242,34, 0.8);
 		}
-
 		.ch-item:hover .ch-info-wrap {
 			box-shadow: 
 				0 0 0 0 rgba(255,255,255,0.8), 
 				inset 0 0 3px rgba(115,114, 23, 0.8);
 		}
-
 		.ch-item:hover .ch-info {
 			transform: rotate3d(0,1,0,-180deg);
 		}
-
 	</style>
 	<title>Express ES6 temlpate engine - the fastest and unopinionated javascript template engine for Node and Express</title>
 </head>
@@ -282,10 +262,8 @@
   <h5>Express Template Engine</h5>
 </div>
 
-<h2 class="subtitle">The fastest and unopinionated javascript template<br>for Node and Express.</h2>
-
 <h2>Origins</h2>
-<p>The art of creating code that is "environment agnostic" recognised as "Isomorphic JavaScript", allows us to render the views of the application from the server (during the initialisation of the app) and then keep rendering the other views directly in the browser (avoiding a full page refresh) while the user keep navigating across the different sections. One of the advantages of having ES6 renderer as template engine for the backend of a web application is that one have to deal only with javascript template literals as a single syntax across the web stack. With this in mind the engine can be seen as the perfect tool that facilitates logic sharing between the frontend and the backend to reduce the codebase duplication between the browser and the server to the bare minimun. Express ES6 temlpate engine is a minimal and flexible Node web application library, providing a robust set of features for building single and multi-page, and hybrid web applications. As a framework-independent technology, ES6 Renderer is an engine one can adopt and hit the ground running with immediately.
+<p>The art of creating code that is "environment agnostic" recognised as "Isomorphic JavaScript", allows us to render the views of the application from the server (during the initialisation of the app) and then keep rendering the other views directly in the browser (avoiding a full page refresh) while the user keep navigating across the different sections. One of the advantages of having ES6 renderer as template engine for the backend of a web application is that one have to deal only with javascript template literals as a single syntax across the web stack. With this in mind the engine can be seen as the perfect tool that facilitates logic sharing between the frontend and the backend in order to reduce the codebase duplication between the browser and the server to the bare minimun. Express ES6 temlpate engine is a minimal and flexible Node web application library, providing a robust set of features for building single and multi page, and hybrid web applications. As a framework-independent technology, ES6 Renderer is an engine one can adopt and hit the ground running with immediately.
 </p>
 
 <h2>Features</h2>
@@ -377,7 +355,7 @@
 </p>
 
 <h2>Benchmarks</h2>
-<p>It’s not uncommon that from time to time developers ask me about what template engine do I use and why. After my reply, they typically say something like: “isn’t that one slow?”. Usually, when developers talk in regards to performance, I always utter something like: “well, that depends on …”, and there one can insert his slow performance reasoning of choice, if it can be bad or not that bad.</p>
+<p>It’s not uncommon that from time to time I am asked about what template engine do I use and why. After my reply, I get something like: “isn’t that one slow?”. Usually, when developers talk in regards to performance, I always utter something like: “well, that depends on …”, and there one can insert his slow performance reasoning of choice, if it can be bad or not that bad.</p>
 <p>Benchmark testing was done with Marko's brilliant <a href="https://github.com/marko-js/templating-benchmarks">Templating benchmark suite</a>. Testing ES6 Renderer performance was a great opportunity to see how it stacked-up beside others. Our speed test compiled one main template containing an array of string, an object literal and conditional statements.</p>
 <table class="benchmarks">
 	<thead>
