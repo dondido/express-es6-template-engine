@@ -280,8 +280,8 @@ And the following is received by the client side:
     <dd>Template strings can contain placeholders. These are indicated by dollar sign and curly braces.</dd>
 </dl>
 ```
-
-
+#### Online compiler
+Online compiler and debugging tool which allows you to compile ES6 Renderer templates and render them in real time can be found at http://dondido.github.io/express-es6-template-engine/.
 
 ### License
 
