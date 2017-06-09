@@ -281,7 +281,7 @@ And the following is received by the client side:
 </dl>
 ```
 #### Online compiler
-Online compiler and debugging tool which allows you to compile ES6 Renderer templates and render them in real time can be found at http://dondido.github.io/express-es6-template-engine/.
+Online testing environment and debugging tool which allow you to compile ES6 Renderer templates and render them in real time can be found at http://dondido.github.io/express-es6-template-engine/.
 
 ### License
 
