@@ -1,4 +1,5 @@
 const fs = require('fs'); // this engine requires the fs module
+const utils = require('./utils');
 /* jshint ignore:start */
 const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
 /* jshint ignore:end */
@@ -17,16 +18,17 @@ module.exports = (path, options, render = (err, content) => err || content) => {
     return compile(path, options);
   }
   const {locals = {}, partials = {}, settings, template} = options;
+  const escape = (val) => settings && settings.escape === false ? val : utils.escape(val);
   
   const assign = (err, content) => {
     if(err) {
       return render(new Error(err));
     }
     const localsKeys = Object.keys(locals);
-    const localsValues = localsKeys.map(i => locals[i]);
+    const localsValues = localsKeys.map(i => escape(locals[i]));
     const partialsKeys = Object.keys(partials);
     const compilePartials = values => {
-      const valTempList = localsValues.concat(values);
+      const valTempList = localsValues.concat(escape(values));
       localsValues.push(...values.map(i => compile(i, localsKeys)(...valTempList)));
       return render(null, compile(content, localsKeys)(...localsValues));
     };

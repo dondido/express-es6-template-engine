@@ -7,13 +7,33 @@ describe("ES6 Renderer", () => {
     expect(es6Renderer).to.be.a("function");
   });
 
-  it("renders a provided string syncronously", () => {
+  it("interpolates a provided string", () => {
     const titleTpl = "${engineName} - The fastest javascript template string engine!";
     const content = es6Renderer(titleTpl, {
       template: true,
-      locals: { engineName: "ES6 Renderer", footer: "MIT License" }
+      locals: { engineName: "ES6 Renderer"}
     });
     expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!");
+  });
+
+  it("escapes locals to prevent XSS", () => {
+    const titleTpl = "${engineName} - The fastest javascript template string engine!";
+
+    const escapedContent = es6Renderer(titleTpl, {
+      template: true,
+      locals: { engineName: "<script>alert('ES6 Renderer')</script>"}
+    });
+
+    const unescapedContent = es6Renderer(titleTpl, {
+      template: true,
+      locals: { engineName: "<script>alert('ES6 Renderer')</script>"},
+      settings: {
+        escape: false
+      }
+    });
+    
+    expect(escapedContent).to.equal("&lt;script&gt;alert(&#39;ES6 Renderer&#39;)&lt;/script&gt; - The fastest javascript template string engine!");
+    expect(unescapedContent).to.equal("<script>alert('ES6 Renderer')</script> - The fastest javascript template string engine!");
   });
 
   describe("External templates", () => {
