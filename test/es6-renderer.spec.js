@@ -46,4 +46,22 @@ describe("ES6 Renderer", () => {
       );
     });
   });
+
+  describe("Pre-compilation", () => {
+    it("can pre-compile templates when all names are listed", () => {
+      const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
+      const precompiled = es6Renderer(text, ['engineName', 'place']);
+      const content = precompiled('ES6 Renderer', 'multiverse')
+      expect(precompiled).to.be.a("function");
+      expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine in the whole multiverse!");
+    });
+  
+    it("can pre-compile templates using default '$' object property", () => {
+      const text = '${$.engineName} - The fastest javascript template string engine in the whole ${$.place}!';
+      const precompiled = es6Renderer(text)
+      const content = precompiled({ engineName: 'ES6 Renderer', place: 'multiverse' });
+      expect(precompiled).to.be.a("function");
+      expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine in the whole multiverse!");
+    });
+  });
 });

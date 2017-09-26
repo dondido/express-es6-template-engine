@@ -13,8 +13,8 @@ const getPartial = (path, cb = 'resolveNeutral') => {
 };
     
 module.exports = (path, options, render = (err, content) => err || content) => {
-  if(options === undefined || typeof options === 'string') {
-    return compile(path);
+  if(options === undefined || options instanceof Array) {
+    return compile(path, options);
   }
   const {locals = {}, partials = {}, settings, template} = options;
   
