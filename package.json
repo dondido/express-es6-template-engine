@@ -4,7 +4,7 @@
   "description": "Express ES6 string template engine",
   "main": "es6-renderer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "ES6",
@@ -19,5 +19,9 @@
     "url": "git+https://github.com/dondido/express-es6-template-engine.git"
   },
   "author": "Dian Dimitrov",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3"
+  }
 }
