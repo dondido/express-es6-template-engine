@@ -7,14 +7,17 @@ describe("ES6 Renderer", () => {
     expect(es6Renderer).to.be.a("function");
   });
 
+
   it("interpolates a provided string", () => {
     const titleTpl = "${engineName} - The fastest javascript template string engine!";
     const content = es6Renderer(titleTpl, {
       template: true,
       locals: { engineName: "ES6 Renderer"}
+
     });
     expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!");
   });
+
 
   it("escapes locals to prevent XSS", () => {
     const titleTpl = "${engineName} - The fastest javascript template string engine!";
@@ -35,6 +38,7 @@ describe("ES6 Renderer", () => {
     expect(escapedContent).to.equal("&lt;script&gt;alert(&#39;ES6 Renderer&#39;)&lt;/script&gt; - The fastest javascript template string engine!");
     expect(unescapedContent).to.equal("<script>alert('ES6 Renderer')</script> - The fastest javascript template string engine!");
   });
+
 
   describe("External templates", () => {
     it("renders a template file", done => {
@@ -67,6 +71,7 @@ describe("ES6 Renderer", () => {
     });
   });
 
+
   describe("Pre-compilation", () => {
     it("can pre-compile templates when all names are listed", () => {
       const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
@@ -84,4 +89,5 @@ describe("ES6 Renderer", () => {
       expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine in the whole multiverse!");
     });
   });
+
 });
