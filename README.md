@@ -197,7 +197,7 @@ es6Renderer('view/templateA.html', {
 ES6 Renderer allows us bypassing Express view rendering for speed and modularity. Compiling a template is much slower than rendering it, so when it comes to speed, we should precompile our templates as part of the optimisation process. The result of precompilation can be stored to an object:
 ```javascript
 const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
-const precompiled = es6Renderer(text, 'engineName', 'place');
+const precompiled = es6Renderer(text, ['engineName', 'place']);
 ```
 and then invoked whenver needed:
 ```javascript
