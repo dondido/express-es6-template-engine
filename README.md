@@ -8,6 +8,12 @@ Minimum requirements Node.js `v4.0.0`.
 
 [![Package Version](https://img.shields.io/badge/npm-4.0.0-blue.svg)](https://www.npmjs.com/package/express-es6-template-engine)
 
+### Benchmarks
+
+Our speed test compiled one main template containing an array of string, an object literal and conditional statements.
+
+![Benchmarks](benchmarks.png)
+
 ### Installation
 
 ```bash
