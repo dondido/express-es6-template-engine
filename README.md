@@ -10,7 +10,7 @@ Minimum requirements Node.js `v4.0.0`.
 
 ### Benchmarks
 
-Our speed test compiled one main template containing an array of string, an object literal and conditional statements.
+Testing ES6 Renderer performance was a great opportunity to see how it stacked-up beside others. Our speed test compiled one main template containing an array of string, an object literal and conditional statements.
 
 ![Benchmarks](benchmarks.png)
 
