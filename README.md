@@ -142,10 +142,11 @@ Compiling has the following syntax:
 const titleTpl = '${engineName} - The fastest javascript template string engine!';
 const cb = (err, content) => err || content;
 
-// async - 'template' option need be omitted or set to false
+// async - second parameter is an object and third parameter is a callback function
 es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, cb);
-// sync - partials need be omitted and 'template' option set to true
-const compiled = es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'});
+// sync - second parameter is a string representation of an array of variable names.
+// The returned function is called with a string representation of an array of variable values.
+const compiled = es6Renderer(titleTpl, 'engineName')('ES6 Renderer');
 ```
 The template engine allows both synchronous and asynchronous method invocations. If string is rendered as in the examples provided above a 'template' option needs to be set to true. The preceding synchronous invocation returns an output immediately in response to the function execution. Alternatively, you can specify partials and omit template parameter to force file lookup and content reading and invoke the function asynchronously. 
 
