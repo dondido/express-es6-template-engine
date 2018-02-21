@@ -17,7 +17,6 @@ module.exports = (path, options, render = (err, content) => err || content) => {
     return compile(path, options);
   }
   const {locals = {}, partials = {}, settings, template} = options;
-  
   const assign = (err, content) => {
     if(err) {
       return render(new Error(err));
