@@ -90,7 +90,7 @@ res.render('index', {
       title:  'Welcome!'
     },
     partials: {
-      template: 'template.html'
+      template: 'template'
     }
   });
 ```
