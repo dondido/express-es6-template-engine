@@ -13,8 +13,7 @@ describe("ES6 Renderer", () => {
     const titleTpl = "${engineName} - The fastest javascript template string engine!";
     const content = es6Renderer(titleTpl, {
       template: true,
-      locals: { engineName: "ES6 Renderer"}
-
+      locals: { engineName: "ES6 Renderer" }
     });
     expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!");
   });
