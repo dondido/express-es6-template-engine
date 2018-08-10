@@ -11,7 +11,21 @@ const getPartial = (path, cb = 'resolveNeutral') => {
   };
   return new Promise(findFile);
 };
-    
+
+const defineAllVariables = function(template, locals) {
+  const localsDef = locals;
+  const pattern = /\$\{[\s]*?([\w\d]+)[\s]*?[\}\?]/gm;
+
+  let matchArray;
+  while((matchArray = pattern.exec(template)) !== null) {
+    if (!locals[matchArray[1]]) {
+      localsDef[matchArray[1]] = null;
+    }
+  }
+
+  return localsDef;
+};
+
 module.exports = (path, options, render = (err, content) => err || content) => {
   if(options === undefined || typeof options === 'string') {
     return compile(path, options);
@@ -21,13 +35,20 @@ module.exports = (path, options, render = (err, content) => err || content) => {
     if(err) {
       return render(new Error(err));
     }
-    const localsKeys = Object.keys(locals);
-    const localsValues = localsKeys.map(i => locals[i]);
+
+    const localsDef = defineAllVariables(content, locals);
+    const localsKeys = Object.keys(localsDef);
+    const localsValues = localsKeys.map(i => localsDef[i]);
     const partialsKeys = Object.keys(partials);
     const compilePartials = values => {
       const valTempList = localsValues.concat(values);
       localsValues.push(...values.map(i => compile(i, localsKeys)(...valTempList)));
-      return render(null, compile(content, localsKeys)(...localsValues));
+
+      try {
+        return render(null, compile(content, localsKeys)(...localsValues));
+      } catch (e) {
+        return render(e);
+      }
     };
     if(partialsKeys.length) {
       const applySettings = () => {
@@ -51,7 +72,12 @@ module.exports = (path, options, render = (err, content) => err || content) => {
         .then(compilePartials)
         .catch(err => render(err));
     }
-    return render(null, compile(content, localsKeys)(...localsValues));
+
+    try {
+      return render(null, compile(content, localsKeys)(...localsValues));
+    } catch (e) {
+      return render(e);
+    }
   };
   if (template) {
     return assign(null, path);

@@ -18,6 +18,24 @@ describe("ES6 Renderer", () => {
     expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!");
   });
 
+  it("interpolates a not defined variable", () => {
+    const titleTpl = "${engineName} - The fastest javascript template string engine!";
+    const content = es6Renderer(titleTpl, {
+      template: true,
+      locals: { engineNameTwo: "ES6 Renderer" }
+    });
+    expect(content).to.equal("null - The fastest javascript template string engine!");
+  });
+
+  it("interpolates a not defined variable with condition", () => {
+    const titleTpl = '<input type="text" class="${messages ? "error" : "" }">';
+    const content = es6Renderer(titleTpl, {
+      template: true,
+      locals: { engineNameTwo: "ES6 Renderer" }
+    });
+    expect(content).to.equal('<input type="text" class="">');
+  });
+
   describe("External templates", () => {
     it("renders a template file", done => {
       es6Renderer(
@@ -57,7 +75,7 @@ describe("ES6 Renderer", () => {
       expect(precompiled).to.be.a("function");
       expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine in the whole multiverse!");
     });
-  
+
     it("can pre-compile templates using default '$' object property", () => {
       const text = '${$.engineName} - The fastest javascript template string engine in the whole ${$.place}!';
       const precompiled = es6Renderer(text)
@@ -69,7 +87,7 @@ describe("ES6 Renderer", () => {
 
   describe("Express", () => {
     const app = express();
-    
+
     app.engine('html', es6Renderer);
     app.set('views', __dirname);
     app.set('view engine', 'html');
