@@ -35,6 +35,8 @@ $ npm i express-es6-template-engine --save
 
 #### Prerequisites
 
+List of used html files in the `views` folder:
+
 `index.html`
 
 ```html
