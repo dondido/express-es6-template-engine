@@ -122,7 +122,11 @@ To get up and running without having to worry about managing extra libraries one
 
 ```javascript
 const es6Renderer = require('express-es6-template-engine');
-es6Renderer(__dirname + '/views/index.html', { locals: { title:  'ES6 Renderer' } }, (err, content) => err || content);
+es6Renderer(
+    __dirname + '/views/index.html',
+    { locals: { title:  'ES6 Renderer' } },
+    (err, content) => err || content
+);
 ```
 
 The content below will be rendered on the client side as a response from both setups:
@@ -153,7 +157,7 @@ app.get('/', function(req, res) {
 });
 ```
 
-Partial with a file name `partial.html` (see the content of the file in the section above) will be injected into `template.html`:
+Partial with a file name `partial.html` (see the content of the file in the prerequisites section above) will be injected into `template.html`:
 
 ```html
 <!DOCTYPE html>
