@@ -33,12 +33,60 @@ $ npm i express-es6-template-engine --save
 
 ### Usage
 
-#### Setup
+#### Prerequisites
+
+`index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>${title}</h1>
+</body>
+</html>
+```
+
+`template.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>${title}</h1>
+    <main>${partial}</main>
+</body>
+</html>
+```
+
+`partial.html`
+
+```html
+<p>The fastest javascript template string engine!</p>
+```
+
+`partial-conditional.html`
+
+```html
+ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maitaned anymore'}.
+```
+
+`partial-iteration.html`
+
+```html
+<dl>
+  ${features.map(f => `
+    <dt>${f.dt}</dt>
+    <dd>${f.dd}</dd>
+  `).join('')}
+</dl>
+```
+
+#### Setup with Express
 
 The basics required to integrate ES6 renderer in your app are pretty simple and easy to implement:
 
 ```javascript
-var express = require('express'),
+const express = require('express'),
   es6Renderer = require('express-es6-template-engine'),
   app = express();
   
@@ -58,75 +106,59 @@ Before Express can render template files, the following application settings mus
 - views, the directory where the template files are located. Eg: app.set('views', './views')
 - view engine, the template engine to use. Eg: app.set('view engine', 'html')
 
-HTML template file named index.html in the views directory is needed, with the following content:
+HTML template file named `index.html` in the views directory is needed (the content of the file can be found in the prerequisites section). Route to render the html file is expected. If the view engine property is not set, we must specify the extension of the view file. Otherwise, it can be safely omitted.
+
+```javascript
+app.render('index', {locals: {title: 'ES6 Renderer'}});
+```
+
+Express-compliant template engines such as ES6 Renderer export a function named __express(filePath, options, callback), which is called by the res.render() function to render the template code. When a request is made to the home page, the index.html file will be rendered as HTML.
+
+#### Setup without Express
+
+To get up and running without having to worry about managing extra libraries one only needs the following:
+
+```javascript
+const es6Renderer = require('express-es6-template-engine');
+es6Renderer(__dirname + '/views/index.html', { locals: { title:  'ES6 Renderer' } }, (err, content) => err || content);
+```
+
+The content below will be rendered on the client side as a response from both setups:
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <title>${title}</title>
-</head>
 <body>
-    <h1>${title}</h1>
+    <h1>ES6 Renderer</h1>
 </body>
 </html>
 ```
-Route to render the index.html file is expected. If the view engine property is not set, we must specify the extension of the view file. Otherwise, it can be safely omitted.
-
-```javascript
-app.get('/', function(req, res) {
-  res.render('index', {locals: {title: 'Welcome!'}});
-});
-```
-Express-compliant template engines such as ES6 Renderer export a function named __express(filePath, options, callback), which is called by the res.render() function to render the template code. When a request is made to the home page, the index.html file will be rendered as HTML.
 
 #### Rendering a template
 
 Within your app route callback, call `res.render`, passing any partials and local variables required by your template. For example:
 
 ```javascript
-res.render('index', {
-    locals: {
-      title:  'Welcome!'
-    },
-    partials: {
-      template: 'template'
-    }
+app.get('/', function(req, res) {
+  res.render('template', {
+      locals: {
+        title:  'ES6 Renderer'
+      },
+      partials: {
+        partial: __dirname + '/views/partial'
+      }
   });
+});
 ```
 
-Having the index.html file with the following content in your view directory is need:
+Partial with a file name `partial.html` (see the content of the file in the section above) will be injected into `template.html`:
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <title>${title}</title>
-</head>
 <body>
-    <h1>${title}</h1>
-    <main>${template}</main>
-</body>
-</html>
-```
-
-Partial template with a file name template.html will be injected into index.html:
-
-```html
-<div>No learning of a template engine syntax required! Pure vanilla javascript certified!</div>
-```
-
-The content below will be rendered on the client side as a response from the Express app:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome</title>
-</head>
-<body>
-    <h1>Welcome!</h1>
-    <div>No learning of a template engine syntax required! Pure vanilla javascript certified!</div>
+    <h1>ES6 Renderer</h1>
+    <main><p>The fastest javascript template string engine!</p></main>
 </body>
 </html>
 ```
@@ -142,11 +174,16 @@ Compiling has the following syntax:
 const titleTpl = '${engineName} - The fastest javascript template string engine!';
 const cb = (err, content) => err || content;
 
-// async - second parameter is an object and third parameter is a callback function
-es6Renderer(titleTpl, {locals:{engineName: 'ES6 Renderer'}, cb);
 // sync - second parameter is a string representation of an array of variable names.
 // The returned function is called with a string representation of an array of variable values.
 const compiled = es6Renderer(titleTpl, 'engineName')('ES6 Renderer');
+// async - second parameter is an object and third parameter is a callback function
+es6Renderer(titleTpl,{ template: true, locals:{ engineName: 'ES6 Renderer' } }, cb);
+```
+Both methods will result in the following output:
+
+```
+ES6 Renderer - The fastest javascript template string engine!
 ```
 The template engine allows both synchronous and asynchronous method invocations. If string is rendered as in the examples provided above a 'template' option needs to be set to true. The preceding synchronous invocation returns an output immediately in response to the function execution. Alternatively, you can specify partials and omit template parameter to force file lookup and content reading and invoke the function asynchronously. 
 
@@ -157,24 +194,33 @@ The two functions `app.render` and `es6Renderer` are almost identical, but they 
 They both return the rendered content of a view via the callback function. The callback function which is provided as a third parameter is called once the asynchronous activity is completed. The output in the two examples provided below is the same:
 
 ```javascript
-app.render('index', {
+app.render('template', {
+  locals: {
+    title:  'ES6 Renderer'
+  },
   partials: {
-    template: 'template'
+    template: __dirname + '/views/partial'
   }
 }, (err, content) => err || content);
 ```
 ```javascript
-es6Renderer('view/index.html', {
+es6Renderer(__dirname + '/views/template.html', {
+  locals: {
+    title:  'ES6 Renderer'
+  },
   partials: {
-    template: 'views/template.html'
+    template: __dirname + '/views/partial.html'
   }
 }, (err, content) => err || content);
 ```
 On average `es6Renderer` yields slightly better performance than `app.render`. Async function invocation of `es6Renderer` also returns a promise, which enables us to chain method calls:
 ```javascript
-const compile = es6Renderer('view/index.html', {
+const compile = es6Renderer(__dirname + '/views/template.html', {
+  locals: {
+    title:  'ES6 Renderer'
+  },
   partials: {
-    template: 'views/template.html'
+    template: __dirname + '/views/partial.html'
   }
 }, (err, content) => err || content);
 compile.then(output => res.send(output))
@@ -185,17 +231,14 @@ compile.then(output => res.send(output))
 Template nesting is currently not supported by the engine. A simple workaround to this issue would be to perform multiple template compilations:
 
 ```javascript
-const renderPage = (err, content) => res.render('index', {
+const renderPage = (err, content) => res.render('template', {
   locals: {
-    template: content
-  },
-  partials: {
-    main: 'templateC'
+    partial: content
   }
 });
-es6Renderer('view/templateA.html', {
-  partials: {
-    template: 'views/templateB.html'
+es6Renderer(__dirname + '/views/partial-conditional.html', {
+  locals: {
+    maintainedBy:  'Good Samaritans'
   }
 }, renderPage);
 ```
@@ -226,17 +269,11 @@ ES6 Renderer dynamically evaluates code in JavaScript. If the argument is an exp
 A route path on the server side:
 
 ```javascript
-res.render('index', {
+res.render('partial-conditional', {
     locals: {
       maintainedBy:  'Good Samaritans'
     }
   });
-```
-
-And a conditional statement in a html file like the one below:
-
-```html
-ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maitaned anymore'}.
 ```
 
 Will result in the following:
@@ -250,7 +287,7 @@ ES6 Renderer is a template engine maintained by Good Samaritans.
 Iterating over arrays and objects is quite straight forward and intuitive (knowledge of basic javascript here is essential). An object literal is passed to a html template:
 
 ```javascript
-res.render('index', {
+res.render('partial-iteration', {
     locals: {
       features:  [
       { 
@@ -266,18 +303,7 @@ res.render('index', {
   });
 ```
 
-The html templates holds the following logic:
-
-```html
-<dl>
-  ${features.map(f => `
-    <dt>${f.dt}</dt>
-    <dd>${f.dd}</dd>
-  `).join('')}
-</dl>
-```
-
-And the following is received by the client side:
+The following is received by the client side:
 
 ```html
 <dl>
