@@ -12,14 +12,36 @@ const getPartial = (path, cb = 'resolveNeutral') => {
   return new Promise(findFile);
 };
     
-module.exports = (path, options, render = (err, content) => err || content) => {
+module.exports = (path, options, render) => {
   if(options === undefined || typeof options === 'string') {
     return compile(path, options);
   }
-  const {locals = {}, partials = {}, settings, template} = options;
+  let willResolve;
+  let willReject;
+  const fulfillPromise = (resolve, reject) => { 
+    willResolve = resolve;
+    willReject = reject;
+  };
+  const {locals = {}, partials = {}, settings, template} = options; 
   const assign = (err, content) => {
+    const send = () => {
+      if(render) {
+        try {
+          const compiled = compile(content, localsKeys)(...localsValues);
+          const output = render(null, compiled);
+          return willResolve ? willResolve(compiled) : output;
+        } catch (err) {
+          return willReject ? willReject(err) : render(err);
+        }
+      }
+      try {
+        return willResolve(compile(content, localsKeys)(...localsValues));
+      } catch (err) {
+        return willReject(err);
+      }
+    }
     if(err) {
-      return render(new Error(err));
+      return render ? render(err) : willReject(err);
     }
     const localsKeys = Object.keys(locals);
     const localsValues = localsKeys.map(i => locals[i]);
@@ -27,7 +49,7 @@ module.exports = (path, options, render = (err, content) => err || content) => {
     const compilePartials = values => {
       const valTempList = localsValues.concat(values);
       localsValues.push(...values.map(i => compile(i, localsKeys)(...valTempList)));
-      return render(null, compile(content, localsKeys)(...localsValues));
+      send();
     };
     if(partialsKeys.length) {
       const applySettings = () => {
@@ -47,14 +69,15 @@ module.exports = (path, options, render = (err, content) => err || content) => {
       };
       const setPartial = settings ? applySettings() : i => getPartial(partials[i]);
       localsKeys.push(...partialsKeys);
-      return Promise.all(partialsKeys.map(setPartial))
-        .then(compilePartials)
-        .catch(err => render(err));
+      const willGetPartials = Promise.all(partialsKeys.map(setPartial)).then(compilePartials, willReject);
+      return willResolve ? willGetPartials : new Promise(fulfillPromise);
     }
-    return render(null, compile(content, localsKeys)(...localsValues));
+    return send();
   };
-  if (template) {
+  if(template) {
+    render = render || ((err, content) => err || content);
     return assign(null, path);
   }
   fs.readFile(path, 'utf-8', assign);
+  return new Promise(fulfillPromise);
 };

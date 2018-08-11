@@ -19,9 +19,9 @@ describe("ES6 Renderer", () => {
   });
 
   describe("External templates", () => {
-    it("renders a template file", done => {
+    it("renders a template file with a callback", done => {
       es6Renderer(
-        __dirname + "/template.html",
+        __dirname + "/index.html",
         { locals: { engineName: "ES6 Renderer", footer: "MIT License" } },
         (err, content) => {
           expect(err).to.be.null;
@@ -31,9 +31,43 @@ describe("ES6 Renderer", () => {
       );
     });
 
+    it("renders a template file with a promise", done => {
+      const assert = (content) => {
+        expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!\nMIT License");
+        done();
+      };
+      const willRender = es6Renderer(
+        __dirname + "/index.html",
+        { locals: { engineName: "ES6 Renderer", footer: "MIT License" } }
+      );
+      willRender.then(assert);
+    });
+
+    it("merges a string and a partial file with both promise and callback", done => {
+      const assertPromise = (content) => {
+        expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!MIT License");
+        done();
+      };
+      const assertCallback = (err, content) => {
+        expect(err).to.be.null;
+        expect(content).to.equal("ES6 Renderer - The fastest javascript template string engine!MIT License");
+      };
+      const template = "${engineName} - The fastest javascript template string engine!${footer}";
+      const willRender = es6Renderer(
+        template,
+        {
+          template: true,
+          locals: { engineName: "ES6 Renderer", footer: "MIT License" },
+          partials: { footer: __dirname + "/partial.html" }
+        },
+        assertCallback
+      );
+      willRender.then(assertPromise);
+    });
+
     it("render partials", done => {
       es6Renderer(
-        __dirname + "/template.html",
+        __dirname + "/index.html",
         {
           locals: { engineName: "ES6 Renderer" },
           partials: {
@@ -76,7 +110,7 @@ describe("ES6 Renderer", () => {
 
     it("renders a template file", done => {
       app.render(
-        "template",
+        "index",
         { locals: { engineName: "ES6 Renderer", footer: "MIT License" } },
         (err, content) => {
           expect(err).to.be.null;
@@ -88,7 +122,7 @@ describe("ES6 Renderer", () => {
 
     it("render partials", done => {
       app.render(
-        "template",
+        "index",
         {
           locals: { engineName: "ES6 Renderer" },
           partials: {
