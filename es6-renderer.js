@@ -1,4 +1,6 @@
 const fs = require('fs'); // this engine requires the fs module
+const defineAllVariables = require('./pattern').defineAllVariables;
+
 /* jshint ignore:start */
 const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
 /* jshint ignore:end */
@@ -10,20 +12,6 @@ const getPartial = (path, cb = 'resolveNeutral') => {
     fs.readFile(path, 'utf-8', this[cb]);
   };
   return new Promise(findFile);
-};
-
-const defineAllVariables = function(template, locals) {
-  const localsDef = locals;
-  const pattern = /\$\{[\s]*?([\w\d]+)[\s]*?[\}\?]/gm;
-
-  let matchArray;
-  while((matchArray = pattern.exec(template)) !== null) {
-    if (!locals[matchArray[1]]) {
-      localsDef[matchArray[1]] = null;
-    }
-  }
-
-  return localsDef;
 };
 
 module.exports = (path, options, render = (err, content) => err || content) => {

@@ -2,6 +2,7 @@
 const expect = require("chai").expect;
 const express = require("express");
 const es6Renderer = require("../es6-renderer");
+const defineAllVariables = require("../pattern").defineAllVariables;
 
 describe("ES6 Renderer", () => {
 
@@ -122,4 +123,71 @@ describe("ES6 Renderer", () => {
     });
   });
 
+  describe("RegExp", () => {
+    it("normal variable", () => {
+      const variables = defineAllVariables("${engine}", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable with space #1", () => {
+      const variables = defineAllVariables("${engine }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable with space #2", () => {
+      const variables = defineAllVariables("${engine  }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable with space #3", () => {
+      const variables = defineAllVariables("${ engine}", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable with space #4", () => {
+      const variables = defineAllVariables("${  engine}", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable with space #5", () => {
+      const variables = defineAllVariables("${  engine  }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable condition", () => {
+      const variables = defineAllVariables("${engine ? 'troll' : 'lol' }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable condition without space", () => {
+      const variables = defineAllVariables("${engine?'troll':'lol'}", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable condition with space #1", () => {
+      const variables = defineAllVariables("${engine  ? 'troll' : 'lol' }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable condition with space #2", () => {
+      const variables = defineAllVariables("${ engine  ? 'troll' : 'lol' }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+
+    it("normal variable condition with space #3", () => {
+      const variables = defineAllVariables("${  engine  ? 'troll' : 'lol' }", {});
+
+      expect(variables).to.deep.equal({ engine: null });
+    });
+  });
 });
