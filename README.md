@@ -320,6 +320,30 @@ The following is received by the client side:
 </dl>
 ```
 
+#### Error Handling
+
+ES6 Renderer catches and processes errors that occur both synchronously and asynchronously. ES6 Renderer comes with a default error handler so you don’t need to write your own to get started.
+Errors that occur in synchronous code require no extra work. If synchronous code throws an error, then ES6 Renderer will catch and process it. For example.
+
+```javascript
+const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
+const err = es6Renderer(text, 'engineName')('ES6 Renderer', 'multiverse');
+expect(err instanceof Error).to.equal(true);
+```
+
+For errors returned from asynchronous functions, you must pass them to the callback function, where ES6 Renderer will catch and process them. A viable alternative will be to use native promise catch or reject methods. The example underneath handles both cases simultaneously:
+
+```javascript
+es6Renderer(
+    __dirname + "/index.html",
+    { locals: { engineName: "ES6 Renderer", footer: "MIT License" } },
+    (err) => {
+        expect(err instanceof Error).to.equal(true);
+        done();
+    }
+).then((err) => expect(err instanceof Error).to.equal(true));
+```
+
 ### License
 
 MIT License
