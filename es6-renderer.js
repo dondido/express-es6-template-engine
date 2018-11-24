@@ -1,6 +1,8 @@
 const fs = require('fs'); // this engine requires the fs module
 /* jshint ignore:start */
 const compile = (content, $ = '$') => Function($, 'return `' + content + '`;');
+const precompile = (content, $ = '$') =>
+  Function($, 'try { return `' + content + '`;} catch(err) { return err }');
 /* jshint ignore:end */
 const setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views  + '/' + ref + ext;
 const getPartial = (path, cb = 'resolveNeutral') => {
@@ -14,7 +16,7 @@ const getPartial = (path, cb = 'resolveNeutral') => {
     
 module.exports = (path, options, render) => {
   if(options === undefined || typeof options === 'string') {
-    return compile(path, options);
+    return precompile(path, options);
   }
   let willResolve;
   let willReject;
@@ -30,8 +32,10 @@ module.exports = (path, options, render) => {
           const compiled = compile(content, localsKeys)(...localsValues);
           const output = render(null, compiled);
           return willResolve ? willResolve(compiled) : output;
-        } catch (err) {
-          return willReject ? willReject(err) : render(err);
+        } catch(err) {
+          const output = render(err);
+          return willReject && willReject.toString().includes('[native code]') === false
+            ? willReject(err) : output;
         }
       }
       try {
