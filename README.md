@@ -337,10 +337,7 @@ For errors returned from asynchronous functions, you must pass them to the callb
 es6Renderer(
     __dirname + "/index.html",
     { locals: { engineName: "ES6 Renderer", footer: "MIT License" } },
-    (err) => {
-        expect(err instanceof Error).to.equal(true);
-        done();
-    }
+    (err) => expect(err instanceof Error).to.equal(true);
 ).then((err) => expect(err instanceof Error).to.equal(true));
 ```
 
