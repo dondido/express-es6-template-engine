@@ -7,7 +7,7 @@ const precompile = (content, $ = '$') =>
 const setPath = (views, ref, ext) => ref.endsWith(ext) ? ref : views  + '/' + ref + ext;
 const getPartial = (path, cb = 'resolveNeutral') => {
   const findFile = function(resolve, reject) {
-    this.resolveNeutral = (err, content) => err ? reject(new Error(err)) : resolve(content);
+    this.resolveNeutral = (err, content) => err ? reject(err) : resolve(content);
     this.resolvePositive = (err, content) => resolve(err || content);
     fs.readFile(path, 'utf-8', this[cb]);
   };
@@ -24,6 +24,10 @@ module.exports = (path, options, render) => {
     willResolve = resolve;
     willReject = reject;
   };
+  const handleRejection = (err) => {
+    const output = render(err);
+    return willReject ? willReject(err) : output;
+  };
   const {locals = {}, partials = {}, settings, template} = options; 
   const assign = (err, content) => {
     const send = () => {
@@ -33,9 +37,7 @@ module.exports = (path, options, render) => {
           const output = render(null, compiled);
           return willResolve ? willResolve(compiled) : output;
         } catch(err) {
-          const output = render(err);
-          return willReject && willReject.toString().includes('[native code]') === false
-            ? willReject(err) : output;
+          return handleRejection(err);
         }
       }
       try {
@@ -45,7 +47,7 @@ module.exports = (path, options, render) => {
       }
     }
     if(err) {
-      return render ? render(err) : willReject(err);
+      return handleRejection(err);
     }
     const localsKeys = Object.keys(locals);
     const localsValues = localsKeys.map(i => locals[i]);
@@ -73,7 +75,8 @@ module.exports = (path, options, render) => {
       };
       const setPartial = settings ? applySettings() : i => getPartial(partials[i]);
       localsKeys.push(...partialsKeys);
-      const willGetPartials = Promise.all(partialsKeys.map(setPartial)).then(compilePartials, willReject);
+      const willGetPartials = Promise.all(partialsKeys.map(setPartial))
+        .then(compilePartials, handleRejection);
       return willResolve ? willGetPartials : new Promise(fulfillPromise);
     }
     return send();

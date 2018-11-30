@@ -91,7 +91,7 @@ describe("ES6 Renderer", () => {
     });
 
     it("throws an error in case of template interpolation with both promise and callback", done => {
-      const assert = (err) => expect(err instanceof Error).to.equal(true);
+      const assert = err => expect(err instanceof Error).to.equal(true);
       es6Renderer(
         __dirname + "/index.html",
         { locals: { engineName: "ES6 Renderer", footer: "MIT License" } },
@@ -99,7 +99,7 @@ describe("ES6 Renderer", () => {
           expect(err instanceof Error).to.equal(true);
           done();
         }
-      ).then(assert);
+      ).catch(assert);
     });
 
     it("merges a string and a partial file with both promise and callback", done => {
@@ -140,6 +140,41 @@ describe("ES6 Renderer", () => {
         }
       );
     });
+
+    it("throws an error when template is not found", done => {
+      const assert = (err) => {
+        expect(err instanceof Error).to.equal(true);
+        done();
+      };
+      es6Renderer(
+        __dirname + "/inde.html",
+        {
+          locals: { engineName: "ES6 Renderer" },
+          partials: {
+            footer: __dirname + "/partial.html"
+          }
+        },
+        err => expect(err instanceof Error).to.equal(true)
+      ).catch(assert);
+    });
+
+    it("throws an error when partials is not found", done => {
+      const assert = function(err){
+        expect(err instanceof Error).to.equal(true);
+        done();
+      };
+      es6Renderer(
+        __dirname + "/index.html",
+        {
+          locals: { engineName: "ES6 Renderer" },
+          partials: {
+            footer: __dirname + "/partia.html"
+          }
+        },
+        err => expect(err instanceof Error).to.equal(true)
+      ).catch(assert);
+    });
+
   });
 
   describe("Precompilation", () => {
