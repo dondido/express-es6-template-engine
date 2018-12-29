@@ -69,7 +69,7 @@ List of used html files in the `views` folder:
 `partial-conditional.html`
 
 ```html
-ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maitaned anymore'}.
+ES6 Renderer is ${maintainedBy ? `a template engine maintained by ${maintainedBy}` : 'not maintained anymore'}.
 ```
 
 `partial-iteration.html`
@@ -255,7 +255,7 @@ ES6 Renderer allows us bypassing Express view rendering for speed and modularity
 const text = '${engineName} - The fastest javascript template string engine in the whole ${place}!';
 const precompiled = es6Renderer(text, 'engineName, place');
 ```
-and then invoked whenver needed:
+and then invoked whenever needed:
 ```javascript
 console.log(precompiled('ES6 Renderer', 'multiverse'));
 ```
