@@ -343,7 +343,7 @@ es6Renderer(
 
 #### Demo
 
-https://visaforbulgaria.com/ is a fine example of an isomorphic / universal web app  built with ES6 Renderer.
+https://visaforbulgaria.com is a fine example of an isomorphic / universal web app  built with ES6 Renderer.
 
 ### License
 
