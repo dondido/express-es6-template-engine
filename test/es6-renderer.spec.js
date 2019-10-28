@@ -238,6 +238,23 @@ describe("ES6 Renderer", () => {
         }
       );
     });
+
+    it("throws an error when variable is not found", done => {
+      app.render(
+        "index",
+        {
+          locals: {},
+          partials: {
+            footer: "partial"
+          }
+        },
+        (err) => {
+          expect(err instanceof Error).to.equal(true);
+          expect(err.message).to.equal('engineName is not defined');
+          done();
+        }
+      );
+    });
   });
 
 });
