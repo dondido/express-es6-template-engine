@@ -54,7 +54,11 @@ module.exports = (path, options, render) => {
     const partialsKeys = Object.keys(partials);
     const compilePartials = values => {
       const valTempList = localsValues.concat(values);
-      localsValues.push(...values.map(i => compile(i, localsKeys)(...valTempList)));
+      try {
+        localsValues.push(...values.map(i => compile(i, localsKeys)(...valTempList)));
+      } catch (err) {
+        return render(err);
+      }
       send();
     };
     if(partialsKeys.length) {

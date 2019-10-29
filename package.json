@@ -1,6 +1,6 @@
 {
   "name": "express-es6-template-engine",
-  "version": "2.1.9",
+  "version": "2.2.0",
   "description": "Express ES6 string template engine",
   "main": "es6-renderer.js",
   "scripts": {
