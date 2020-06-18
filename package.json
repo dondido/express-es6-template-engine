@@ -1,6 +1,6 @@
 {
   "name": "express-es6-template-engine",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Express ES6 string template engine",
   "main": "es6-renderer.js",
   "scripts": {
@@ -22,6 +22,7 @@
   "author": "Dian Dimitrov",
   "license": "MIT",
   "devDependencies": {
+    "minimist": ">=0.2.1",
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "mocha": "^5.2.0"
