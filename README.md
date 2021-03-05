@@ -151,7 +151,7 @@ app.get('/', function(req, res) {
         title:  'ES6 Renderer'
       },
       partials: {
-        partial: __dirname + '/views/partial'
+        partial: 'partial'
       }
   });
 });
