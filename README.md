@@ -14,6 +14,10 @@ Testing ES6 Renderer performance was a great opportunity to see how it stacked-u
 
 ![Benchmarks](benchmark.png)
 
+### Playground
+
+This template engines is essential tools in web development that allows you to generate dynamic HTML content by combining templates with data. Explore ES6 Renderer [Playground demo](https://dondido.github.io/express-es6-template-engine/) to learn how to use it.
+
 ### Installation
 
 ```bash
